@@ -43,7 +43,7 @@ The token uses your permissions in that workspace. See [Notion’s PAT guide](ht
 |---|---|
 | **A blank database** | Click **New**. The plugin creates a private top-level `Zotero2Notion` page with a `JournalDB` database and selects it. |
 | **The example template** | [Duplicate the public template](https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368) into your workspace. Then click **Refresh**, select the copied database, and click **Use**. |
-| **Your existing database** | Click **Refresh**, choose the database, and click **Use**. Review **Check properties** and add missing properties when prompted. |
+| **Your existing database** | Click **Refresh**, choose the database, and click **Use**. If **Properties to add** appears, click **Add missing** and confirm. |
 
 **Sync starts automatically when the database properties are ready, including all existing regular items in My Library.** Keep Zotero open for subsequent additions and edits to sync. If another Zotero-to-Notion automation is running, stop it before switching to this plugin.
 
@@ -96,7 +96,8 @@ See the [user guide](docs/configuration.md) for all 27 default properties, match
 Install the latest XPI over the existing plugin to update. Releases from **0.1.10** also provide a GitHub-hosted update manifest for Zotero’s plugin updater.
 
 - **Database missing?** Confirm the PAT belongs to the correct workspace and click **Refresh**.
-- **Sync stopped?** Check property mapping, then open **Advanced → Status and recovery**.
+- **Missing properties, such as `Zotero Key`?** Click **Check properties**, then **Add missing** and confirm the list. Sync starts automatically once all property checks pass.
+- **Sync stopped?** Resolve any property type conflicts in **Property mapping** and click **Check properties** again. If properties are ready, open **Advanced → Status and recovery**.
 - **Token no longer valid?** Disconnect, create a new PAT, reconnect, and select the database again.
 - **A creation request timed out?** Use **Check incomplete** and inspect Notion before retrying, to avoid duplicates.
 
@@ -108,6 +109,7 @@ Install the latest XPI over the existing plugin to update. Releases from **0.1.1
 - [x] Publish an update feed for Zotero’s plugin updater
 - [ ] Verify automatic upgrades between releases on macOS and Windows
 - [ ] Discuss tag sync policy: overwriting tags from Zotero and preserving tags added in Notion
+- [ ] Discuss missing-property handling: setup guidance, automatic creation, and property type conflicts
 - [ ] Sync Zotero notes and PDF annotations
 - [ ] Include images and attachments in synced notes
 - [ ] Import and export custom templates from settings
