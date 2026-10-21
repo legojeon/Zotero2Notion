@@ -104,7 +104,7 @@ window.Z2NPreferences = {
           ? app.store.state.pending.length
             ? `${app.store.state.pending.length} items pending`
             : "Automatic sync on"
-          : "Complete the database properties to start syncing.";
+          : "Click Check properties to review database setup.";
       // Updating labels must not reload the editor or move its caret.
       for (const select of root.querySelectorAll(
         "#z2n-template, #z2n-default, [id^='z2n-rule-template-']",
@@ -289,12 +289,7 @@ window.Z2NPreferences = {
     async function showSchema(result) {
       result ||= await app.schemaCheck();
       $("schema").hidden = false;
-      $("schema").textContent = result.conflicts.length
-        ? "Property types need attention\n" + result.conflicts.join("\n")
-        : result.missing.length
-          ? "Properties to add\n" +
-            result.missing.map((p) => `${p.name} (${p.type})`).join("\n")
-          : "All properties are ready.";
+      $("schema").textContent = app.schemaMessage(result);
       $("schema-add").hidden =
         !result.missing.length || !!result.conflicts.length;
     }
@@ -448,8 +443,15 @@ window.Z2NPreferences = {
       drawRules();
       queueRules();
     });
-    $("default").onchange = () =>
-      queueSettings("default", { defaultTemplate: $("default").value });
+    $("default").onchange = action(async () => {
+      const next = $("default").value;
+      // Queue the plugin-owned save before awaiting editor work. Closing the
+      // settings window immediately must not discard the selected default.
+      queueSettings("default", { defaultTemplate: next });
+      await flushTemplate();
+      $("template").value = next;
+      await loadTemplate(next);
+    });
     $("citation").oninput = () =>
       queueSettings(
         "citation",

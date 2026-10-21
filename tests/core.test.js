@@ -8,6 +8,7 @@ import {
   richText,
   encodeProperties,
   inspectSchema,
+  schemaCheckMessage,
   matchExisting,
   decodePage,
 } from "../src/model.js";
@@ -288,8 +289,22 @@ test("a different Zotero record cannot overwrite canonical source", async () => 
 test("missing schema/template fail before creating a page", async () => {
   const f = fixture();
   delete f.s.Authors;
-  await assert.rejects(f.engine.run(f.item, f.c, {}), /properties/);
+  await assert.rejects(f.engine.run(f.item, f.c, {}), /Click Add missing.*properties/);
   assert.equal(f.calls.length, 0);
+});
+
+test("property recovery names the available action and prioritizes conflicts", () => {
+  const c = config(), s = schema();
+  delete s["Zotero Key"];
+  let message = schemaCheckMessage(inspectSchema(s, c.mapping));
+  assert.match(message, /Click Add missing/);
+  assert.match(message, /Zotero Key \(rich_text\)/);
+  s.Authors.type = "number";
+  message = schemaCheckMessage(inspectSchema(s, c.mapping));
+  assert.match(message, /Property mapping/);
+  assert.match(message, /Check properties/);
+  assert.doesNotMatch(message, /Click Add missing/);
+  assert.equal(schemaCheckMessage(inspectSchema(schema(), c.mapping)), "All properties are ready.");
 });
 test("HTTP retry respects 429 but never blindly retries a create on 5xx", async () => {
   let n = 0;

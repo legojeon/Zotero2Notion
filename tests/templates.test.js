@@ -15,10 +15,12 @@ import { pathToFileURL } from "node:url";
 import { execFileSync } from "node:child_process";
 import { webcrypto } from "node:crypto";
 import { Store } from "../src/storage.js";
+import { Autosave } from "../src/autosave.js";
 import {
   initialConfig,
   BUILTIN_TEMPLATES,
   renderTemplate,
+  selectTemplate,
 } from "../src/model.js";
 const addon = new URL("../addon/", import.meta.url).href;
 globalThis.PathUtils = path;
@@ -83,6 +85,31 @@ test("new install exposes only two English templates with concise names and an E
       );
     }
   }
+});
+test("queued custom default survives closing preferences and a settings reload", async (t) => {
+  const store = await fixture(t);
+  await store.init(addon);
+  const korean = { id: "korean", name: "Paper review (Korean)", file: "korean.md" };
+  store.config.templates.push(korean);
+  await store.saveTemplate(korean, "# [title]\n\n## 문제\n");
+  await store.saveConfig();
+  const autosave = new Autosave({
+    timers: { setTimeout, clearTimeout },
+    persist: async (key, patch) => {
+      store.config = { ...store.config, ...patch };
+      await store.saveConfig();
+    },
+  });
+  t.after(() => autosave.close());
+  autosave.set("settings:default", { defaultTemplate: korean.id }, 0);
+  // No preferences-window callback or explicit Save is needed to persist it.
+  await autosave.flush();
+  assert.equal(autosave.status().state, "saved");
+  const reloaded = new Store(store.root);
+  await reloaded.init(addon);
+  assert.equal(reloaded.config.defaultTemplate, korean.id);
+  assert.equal(selectTemplate(reloaded.config, { tags: [], collectionKeys: [] }).id, korean.id);
+  assert.equal(await reloaded.readTemplate(korean), "# [title]\n\n## 문제\n");
 });
 test("first startup from a packed XPI copies exact UTF-8 templates, including paths with spaces and @", async (t) => {
   const store = await fixture(t);

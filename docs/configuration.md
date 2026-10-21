@@ -10,10 +10,6 @@ Repeated **New** uses the completed database for the same connection. To use ano
 
 **Property mapping** connects Zotero fields to your Notion property names. `Journal Name` is the paper title, despite the default column name. `Journal Name` and `Zotero Key` are required; other mappings may be cleared to omit them. The plugin checks types before writing and does not automatically delete or change existing property types.
 
-After selecting a database with **Use**, click **Check properties**. If **Properties to add** lists missing fields such as `Zotero Key`, click **Add missing** and confirm the list. This creates the missing properties while preserving existing properties and page content. Sync starts automatically after all property checks pass.
-
-If a property has the wrong type, resolve its mapping to a compatible Notion property under **Property mapping**, then click **Check properties** again. **Add missing** does not fix type conflicts and is unavailable until they are resolved.
-
 ### Default properties
 
 | Property | Type |
@@ -71,7 +67,7 @@ Custom Notion properties can be read when the page is created. Text, number, sel
 
 ### Template rules
 
-Without rules, every new page uses the default template. Rules are checked from top to bottom, and the first match wins. Match by a collection (including descendants) or an exact tag name. Collection matching uses a stable key, so renaming a collection does not break its rule. Incomplete or disabled rules do not apply.
+Without rules, every new page uses the default template. Choose **Default template** in **Templates**; the selection saves automatically. **Edit template** chooses which outline to edit without changing the default. Rules are checked from top to bottom, and the first match wins. Match by a collection (including descendants) or an exact tag name. Collection matching uses a stable key, so renaming a collection does not break its rule. Incomplete or disabled rules do not apply.
 
 ## Sync behavior
 
@@ -85,7 +81,7 @@ Without rules, every new page uses the default template. Rules are checked from 
 
 ## Recovery
 
-If sync does not start, first click **Check properties**. Use **Add missing** for listed missing properties, or resolve type conflicts in **Property mapping**. Once properties are ready, open **Advanced → Status and recovery** for other sync failures:
+Open **Advanced → Status and recovery**:
 
 - **Retry failed** retries queued failures.
 - **Recheck library** checks the full library again.

@@ -216,6 +216,19 @@ export function missingSchemaProperties(missing) {
     ]),
   );
 }
+export function schemaCheckMessage({ missing, conflicts }) {
+  if (conflicts.length)
+    return (
+      "Resolve property conflicts in Property mapping, then click Check properties.\n" +
+      conflicts.join("\n")
+    );
+  if (missing.length)
+    return (
+      "Click Add missing to add these properties and start syncing:\n" +
+      missing.map((p) => `${p.name} (${p.type})`).join("\n")
+    );
+  return "All properties are ready.";
+}
 export function encodeProperties(
   values,
   schema,

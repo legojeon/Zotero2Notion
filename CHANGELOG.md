@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.11 — 2026-10-22
+
+- Show Add missing directly in Zotero when required database properties are absent, and direct type conflicts to Property mapping.
+- Put the autosaving Default template selector in the Templates section and label the separate editor selector Edit template.
+- Queue default-template saves before loading the editor, independently of the preferences window.
+
 ## 0.1.10 — 2026-10-22
 
 First public GitHub release.

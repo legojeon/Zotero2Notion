@@ -66,19 +66,27 @@
     </section>
     <section aria-labelledby="z2n-template-heading">
       <h2 id="z2n-template-heading">Templates</h2>
-      <div class="control-row">
-        <select id="z2n-template" aria-label="Template"></select>
-        <button id="z2n-template-new" aria-label="New template">New</button>
-        <button id="z2n-template-copy" aria-label="Duplicate template">
-          Duplicate
-        </button>
-        <button
-          id="z2n-template-delete"
-          aria-label="Delete template"
-          class="danger"
-        >
-          Delete
-        </button>
+      <div class="field">
+        <label for="z2n-default">Default template</label>
+        <select id="z2n-default" aria-label="Default template"></select>
+      </div>
+      <small>Used for new pages unless a template rule matches.</small>
+      <div class="field">
+        <label for="z2n-template">Edit template</label>
+        <div class="control-row">
+          <select id="z2n-template" aria-label="Edit template"></select>
+          <button id="z2n-template-new" aria-label="New template">New</button>
+          <button id="z2n-template-copy" aria-label="Duplicate template">
+            Duplicate
+          </button>
+          <button
+            id="z2n-template-delete"
+            aria-label="Delete template"
+            class="danger"
+          >
+            Delete
+          </button>
+        </div>
       </div>
       <div class="field">
         <label for="z2n-template-name">Name</label>
@@ -123,10 +131,6 @@
     </section>
     <details id="z2n-rule-options">
       <summary>Template rules</summary>
-      <div class="field">
-        <label for="z2n-default">Default</label>
-        <select id="z2n-default"></select>
-      </div>
       <small>First match wins. Incomplete rules stay inactive.</small>
       <div id="z2n-rules"></div>
       <div class="button-row"><button id="z2n-rule-add">Add rule</button></div>

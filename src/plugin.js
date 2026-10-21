@@ -6,6 +6,7 @@ import { DatabaseSetup } from "./setup.js";
 import {
   TYPES,
   inspectSchema,
+  schemaCheckMessage,
   missingSchemaProperties,
   renderTemplate,
   selectTemplate,
@@ -504,6 +505,7 @@ const app = {
     this.requestSyncActivation();
     return inspectSchema(d.properties, this.store.config.mapping);
   },
+  schemaMessage: schemaCheckMessage,
   async addMissing() {
     return this.exclusive(async () => {
       const c = await this.schemaCheck();

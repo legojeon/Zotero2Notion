@@ -1,6 +1,7 @@
 import {
   decodePage,
   inspectSchema,
+  schemaCheckMessage,
   encodeProperties,
   matchExisting,
   selectTemplate,
@@ -20,13 +21,7 @@ export class SyncEngine {
       (context.schema = (await this.api.schema(id)).properties);
     const check = inspectSchema(schema, config.mapping);
     if (check.conflicts.length || check.missing.length)
-      throw new Error(
-        "Check the database properties: " +
-          [
-            ...check.conflicts,
-            ...check.missing.map((m) => `${m.name} is missing`),
-          ].join(", "),
-      );
+      throw new Error(schemaCheckMessage(check));
     // Validate template before creating anything; scope/rule errors never leave a new row.
     const template = selectTemplate(config, item);
     const md = await this.readTemplate(template);
