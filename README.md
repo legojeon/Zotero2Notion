@@ -2,19 +2,19 @@
   <img src="assets/logo.png" width="160" alt="Zotero2Notion logo">
 </p>
 <h1 align="center">Zotero2Notion</h1>
-<p align="center">Your papers in Zotero. Your reading notes in Notion.</p>
+<p align="center">Collect papers in Zotero. Organize your learning in Notion.</p>
 <p align="center">
   <a href="https://github.com/legojeon/Zotero2Notion/releases/latest">Download</a> ·
   <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion template</a> ·
   <a href="docs/configuration.md">User guide</a>
 </p>
 <p align="center">
-  <a href="https://github.com/legojeon/Zotero2Notion/releases/latest"><img src="https://img.shields.io/github/v/release/legojeon/Zotero2Notion?color=CC2936" alt="Latest release"></a>
+  <a href="https://github.com/legojeon/Zotero2Notion/releases/latest"><img src="https://img.shields.io/github/v/release/legojeon/Zotero2Notion?color=CC2936&amp;display_name=tag&amp;cacheSeconds=300" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/Zotero-10.0-CC2936" alt="Zotero 10.0">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
 </p>
 
-Add a paper to Zotero and get a Notion database entry with its metadata and your own reading-note outline. Later metadata updates preserve the notes you write in Notion.
+Add a paper to Zotero and get a Notion database entry with its metadata and a customizable space to study and organize what you learn. Later metadata updates preserve the notes you write in Notion.
 
 - **Automatic sync:** existing and newly added items in **My Library**.
 - **Your own templates:** edit Markdown in Zotero settings, with automatic saving.
@@ -49,16 +49,16 @@ The token uses your permissions in that workspace. See [Notion’s PAT guide](ht
 
 ## Make the page your own
 
-Two English outlines are included:
+Two English templates are included as **examples to get you started**:
 
-| Template | Structure | Completed example |
+| Example template | Structure | Completed example |
 |---|---|---|
 | **Paper review** | Problem → Prior work → Proposal → Evidence → Limitations → Questions → Takeaways | [Deep Residual Learning for Image Recognition](examples/resnet-paper-review.md) |
 | **Section summary** | Abstract → Introduction → Related work → Method → Experiments → Results → Discussion → Conclusion | [Attention Is All You Need](examples/attention-is-all-you-need.md) |
 
 The [public Notion template](https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368) contains both completed examples with architecture figures. **New** creates an empty database with the required properties; duplicating the public template also brings its views and example pages.
 
-In **Templates**, edit, duplicate, or create an outline. Changes save automatically. Use **Preview** to inspect substituted Markdown or **Open folder** to edit the `.md` files in your own editor.
+Use any structure that helps you learn: rename headings, add or remove sections, or start with a blank template. In **Templates**, edit, duplicate, or create your own outline. Changes save automatically. Use **Preview** to inspect substituted Markdown or **Open folder** to edit the `.md` files in your own editor.
 
 ```markdown
 # [title]
@@ -101,6 +101,17 @@ Install the latest XPI over the existing plugin to update. Releases from **0.1.1
 - **A creation request timed out?** Use **Check incomplete** and inspect Notion before retrying, to avoid duplicates.
 
 [Report an issue](https://github.com/legojeon/Zotero2Notion/issues) with your Zotero version and the error message. Leave out tokens and private library information.
+
+## Roadmap
+
+- [x] Automatic metadata sync and customizable Markdown templates
+- [x] Publish an update feed for Zotero’s plugin updater
+- [ ] Verify automatic upgrades between releases on macOS and Windows
+- [ ] Sync Zotero notes and PDF annotations
+- [ ] Include images and attachments in synced notes
+- [ ] Import and export custom templates from settings
+
+Planned features may evolve based on feedback and testing.
 
 ## Development
 
