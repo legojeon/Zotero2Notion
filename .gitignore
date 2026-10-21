@@ -1,0 +1,11 @@
+node_modules/
+build/
+dist/
+.env
+.env.*
+.dev.vars
+.DS_Store
+
+# Local development and installation records
+/TESTING.md
+/tests/runtime-result*.json

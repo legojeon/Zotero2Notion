@@ -1,0 +1,374 @@
+#z2n-root {
+  --control-height: 30px;
+  --line: color-mix(in srgb, currentColor 20%, transparent);
+  --surface: color-mix(in srgb, currentColor 4%, transparent);
+  font: inherit;
+  line-height: 1.45;
+  color: var(--fill-primary, CanvasText);
+  width: 100%;
+  max-width: 760px;
+  min-width: 0;
+  padding: 0 0 16px;
+  container-type: inline-size;
+}
+#z2n-root,
+#z2n-root * {
+  box-sizing: border-box;
+}
+#z2n-root h2,
+#z2n-root p,
+#z2n-root label,
+#z2n-root small,
+#z2n-root summary,
+#z2n-root button {
+  font: inherit;
+}
+#z2n-root h2 {
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+#z2n-root section {
+  margin: 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  min-width: 0;
+}
+#z2n-root section:first-of-type {
+  border-top: 0;
+  padding-top: 8px;
+}
+#z2n-root p {
+  margin: 8px 0;
+}
+#z2n-root small {
+  display: block;
+  margin-top: 6px;
+  color: var(--fill-secondary, GrayText);
+}
+#z2n-root .muted {
+  color: var(--fill-secondary, GrayText);
+}
+#z2n-root .field {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+  min-width: 0;
+}
+#z2n-root .field-top {
+  align-items: start;
+}
+#z2n-root .field-top > label {
+  padding-top: 5px;
+}
+#z2n-root label {
+  display: block;
+  margin: 0;
+}
+#z2n-root input:not([type="checkbox"]),
+#z2n-root select,
+#z2n-root textarea {
+  font: inherit;
+  color: inherit;
+  background: var(--material-background, Field);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  margin: 0;
+  padding: 0 8px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--control-height);
+}
+#z2n-root select:not([multiple]) {
+  appearance: none;
+  padding-right: 26px;
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      var(--fill-secondary, GrayText) 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--fill-secondary, GrayText) 50%,
+      transparent 50%
+    );
+  background-position:
+    calc(100% - 13px) 50%,
+    calc(100% - 8px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+#z2n-root textarea {
+  display: block;
+  padding: 8px;
+  height: 220px;
+  min-height: 140px;
+  resize: vertical;
+}
+#z2n-root select[multiple] {
+  height: 86px;
+  padding: 4px;
+}
+#z2n-root select[multiple] option {
+  padding: 2px 4px;
+}
+#z2n-root button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0 10px;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--control-height);
+  min-height: var(--control-height);
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--material-background, ButtonFace);
+  color: inherit;
+  cursor: pointer;
+}
+#z2n-root button:not(:disabled):hover {
+  background: var(--surface);
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+#z2n-root button.primary {
+  color: white;
+  background: #2767d4;
+  border-color: #2767d4;
+}
+#z2n-root button.primary:not(:disabled):hover {
+  background: #2059bd;
+  border-color: #2059bd;
+}
+#z2n-root button.danger {
+  color: light-dark(#a72d32, #ff9ca1);
+}
+#z2n-root button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+#z2n-root button.text-button {
+  border-color: transparent;
+  background: transparent;
+  padding: 0 2px;
+  color: light-dark(#2059bd, #8bb9ff);
+}
+#z2n-root button.text-button:not(:disabled):hover {
+  text-decoration: underline;
+}
+#z2n-root :is(button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid #4a85e6;
+  outline-offset: 2px;
+}
+#z2n-root .control-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+}
+#z2n-root .control-row > :is(input, select) {
+  flex: 1 1 0;
+  width: 0;
+}
+#z2n-root .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 10px;
+}
+#z2n-root .button-row small {
+  margin: 0 0 0 2px;
+  flex: 1;
+}
+#z2n-root .section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--control-height);
+  margin-bottom: 8px;
+}
+#z2n-root .section-heading h2 {
+  margin: 0;
+}
+#z2n-root .section-heading button {
+  margin-left: auto;
+}
+#z2n-root .section-heading span {
+  overflow-wrap: anywhere;
+}
+#z2n-root .editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 10px 0 6px;
+}
+#z2n-root .editor-toolbar .button-row {
+  margin: 0;
+}
+#z2n-root .check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+#z2n-root input[type="checkbox"] {
+  flex: none;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+}
+#z2n-root details {
+  margin-top: 10px;
+}
+#z2n-root summary {
+  cursor: pointer;
+}
+#z2n-root details[open] > summary {
+  margin-bottom: 8px;
+}
+#z2n-root pre {
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--surface);
+  border-radius: 5px;
+  padding: 8px;
+  max-height: 260px;
+  overflow: auto;
+  margin: 10px 0 0;
+}
+#z2n-root code {
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+#z2n-root #z2n-message {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 8px;
+  border-radius: 5px;
+  background: var(--material-background, Canvas);
+  border: 1px solid #579565;
+  white-space: pre-wrap;
+}
+#z2n-root #z2n-message.error {
+  border-color: #cf5555;
+}
+#z2n-root .mapping {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr);
+  gap: 6px 12px;
+  align-items: center;
+  margin-top: 10px;
+}
+#z2n-root .mapping label {
+  overflow-wrap: anywhere;
+}
+#z2n-root .rule {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  margin: 8px 0;
+}
+#z2n-root .rule-condition {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+}
+#z2n-root .rule-index {
+  flex: none;
+  min-width: 16px;
+}
+#z2n-root .rule-kind {
+  flex: 0 0 112px;
+}
+#z2n-root .rule-value {
+  flex: 1 1 0;
+  width: 0;
+}
+#z2n-root .rule-actions {
+  display: flex;
+  gap: 4px;
+}
+#z2n-root button.icon-button {
+  width: var(--control-height);
+  padding: 0;
+}
+#z2n-root .rule .field {
+  grid-template-columns: 88px minmax(0, 1fr);
+  margin-bottom: 0;
+}
+#z2n-root .recovery-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+#z2n-root .sync-actions {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+#z2n-root [hidden] {
+  display: none !important;
+}
+@container (max-width: 390px) {
+  #z2n-root .control-row {
+    flex-wrap: wrap;
+  }
+  #z2n-root .control-row > :is(input, select) {
+    flex-basis: 100%;
+  }
+  #z2n-root .field {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+  #z2n-root .field .control-row > :is(input, select) {
+    flex-basis: 100%;
+  }
+  #z2n-root .rule-condition {
+    flex-wrap: wrap;
+  }
+  #z2n-root .rule-actions {
+    margin-left: auto;
+  }
+  #z2n-root .rule-value {
+    flex-basis: 100px;
+  }
+}
+@container (max-width: 300px) {
+  #z2n-root .field,
+  #z2n-root .mapping {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+#z2n-root .autosave-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 24px;
+}
+#z2n-root .autosave-bar span {
+  overflow-wrap: anywhere;
+}
+#z2n-root .autosave-bar .error {
+  color: light-dark(#a72d32, #ff9ca1);
+}

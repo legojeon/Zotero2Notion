@@ -1,0 +1,16 @@
+[
+  {
+    "templateID": "section-summary-en",
+    "title": "Attention Is All You Need",
+    "file": "attention-is-all-you-need.md",
+    "notionURL": "https://app.notion.com/p/400cf80747f2817a8d71f4a61e979c26",
+    "sourceURL": "https://papers.neurips.cc/paper/7181-attention-isall-you-need.pdf"
+  },
+  {
+    "templateID": "paper-review-en",
+    "title": "Deep Residual Learning for Image Recognition",
+    "file": "resnet-paper-review.md",
+    "notionURL": "https://app.notion.com/p/400cf80747f28182ae9fead8e4e00087",
+    "sourceURL": "https://arxiv.org/pdf/1512.03385v1"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Zotero2Notion",
+  "version": "0.1.10",
+  "description": "Sync papers and custom Markdown templates to Notion.",
+  "applications": {
+    "zotero": {
+      "id": "zotero2notion@local.plugin",
+      "strict_min_version": "10.0",
+      "strict_max_version": "10.0.*",
+      "update_url": "https://github.com/legojeon/Zotero2Notion/releases/latest/download/updates.json"
+    }
+  },
+  "icons": {
+    "24": "icons/icon-24.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "256": "icons/icon-256.png"
+  },
+  "author": "Jaewoo Jeon",
+  "homepage_url": "https://github.com/legojeon/Zotero2Notion"
+}

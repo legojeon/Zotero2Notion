@@ -1,0 +1,23 @@
+{
+  "name": "zotero2notion",
+  "version": "0.1.10",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build": "node scripts/build.js",
+    "check": "npm test && npm run build"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "description": "Sync Zotero papers to Notion with customizable Markdown templates.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/legojeon/Zotero2Notion.git"
+  }
+}

@@ -1,0 +1,155 @@
+<groupbox onload="Z2NPreferences.init()">
+  <html:div id="z2n-root" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <div class="autosave-bar">
+      <span
+        id="z2n-autosave-status"
+        class="muted"
+        role="status"
+        aria-live="polite"
+      >
+        Saved
+      </span>
+      <button id="z2n-autosave-retry" hidden="">Retry</button>
+    </div>
+    <div id="z2n-message" role="status" aria-live="polite" hidden=""></div>
+    <section aria-labelledby="z2n-connection-heading">
+      <div class="section-heading">
+        <h2 id="z2n-connection-heading">Notion</h2>
+        <span id="z2n-connection" class="muted" role="status">Checking…</span>
+        <button id="z2n-disconnect" hidden="">Disconnect</button>
+      </div>
+      <div id="z2n-token-controls">
+        <div class="control-row">
+          <input
+            id="z2n-token"
+            type="password"
+            autocomplete="off"
+            placeholder="Personal access token"
+            aria-label="Personal access token"
+          />
+          <button id="z2n-token-connect" class="primary">Connect</button>
+          <button id="z2n-token-help" class="text-button">Get token</button>
+        </div>
+        <small
+          >Choose the Notion API capability when creating your token.</small
+        >
+      </div>
+    </section>
+    <section aria-labelledby="z2n-db-heading">
+      <h2 id="z2n-db-heading">Database</h2>
+      <div class="control-row">
+        <select id="z2n-db" aria-label="Database"></select>
+        <button id="z2n-db-refresh" aria-label="Refresh databases">
+          Refresh
+        </button>
+        <button id="z2n-db-save" aria-label="Use database" class="primary">
+          Use
+        </button>
+        <button
+          id="z2n-db-new"
+          aria-label="New database"
+          title="Create a private Zotero2Notion page with JournalDB"
+          >New</button
+        >
+      </div>
+      <div class="button-row">
+        <button id="z2n-schema-check">Check properties</button>
+        <button id="z2n-schema-add" hidden="">Add missing</button>
+      </div>
+      <small id="z2n-sync-status" hidden=""></small>
+      <pre id="z2n-schema" hidden=""></pre>
+      <details>
+        <summary>Property mapping</summary>
+        <small>Leave optional fields blank to skip them.</small>
+        <div id="z2n-mapping" class="mapping"></div>
+      </details>
+    </section>
+    <section aria-labelledby="z2n-template-heading">
+      <h2 id="z2n-template-heading">Templates</h2>
+      <div class="control-row">
+        <select id="z2n-template" aria-label="Template"></select>
+        <button id="z2n-template-new" aria-label="New template">New</button>
+        <button id="z2n-template-copy" aria-label="Duplicate template">
+          Duplicate
+        </button>
+        <button
+          id="z2n-template-delete"
+          aria-label="Delete template"
+          class="danger"
+        >
+          Delete
+        </button>
+      </div>
+      <div class="field">
+        <label for="z2n-template-name">Name</label>
+        <input id="z2n-template-name" />
+      </div>
+      <div class="editor-toolbar">
+        <label for="z2n-markdown">
+          Markdown
+          <span id="z2n-dirty" class="muted"></span>
+        </label>
+        <div class="button-row">
+          <button
+            id="z2n-preview"
+            title="Preview with the selected item, or sample data"
+          >
+            Preview
+          </button>
+          <button id="z2n-folder">Open folder</button>
+        </div>
+      </div>
+      <textarea id="z2n-markdown" spellcheck="false"></textarea>
+      <small>Applies to new pages.</small>
+      <pre id="z2n-preview-text" aria-label="Template preview" hidden=""></pre>
+      <details>
+        <summary>Variables</summary>
+        <p>
+          <code>[title]</code>
+          ·
+          <code>[authors]</code>
+          ·
+          <code>[authors_short]</code>
+          ·
+          <code>[year]</code>
+          ·
+          <code>[paper_link]</code>
+          ·
+          <code>[zotero_link]</code>
+        </p>
+        <small>Database properties are also available:</small>
+        <p id="z2n-variables"></p>
+      </details>
+    </section>
+    <details id="z2n-rule-options">
+      <summary>Template rules</summary>
+      <div class="field">
+        <label for="z2n-default">Default</label>
+        <select id="z2n-default"></select>
+      </div>
+      <small>First match wins. Incomplete rules stay inactive.</small>
+      <div id="z2n-rules"></div>
+      <div class="button-row"><button id="z2n-rule-add">Add rule</button></div>
+    </details>
+    <details id="z2n-advanced">
+      <summary>Advanced</summary>
+      <div class="field">
+        <label for="z2n-citation">Citation style</label>
+        <input
+          id="z2n-citation"
+          placeholder="http://www.zotero.org/styles/apa"
+        />
+      </div>
+      <details>
+        <summary>Status and recovery</summary>
+        <pre id="z2n-log" aria-label="Sync activity"></pre>
+        <div class="button-row">
+          <button id="z2n-retry">Retry failed</button>
+          <button id="z2n-send-scope">Recheck library</button>
+          <button id="z2n-recovery">Check incomplete</button>
+        </div>
+        <div id="z2n-unresolved"></div>
+      </details>
+    </details>
+  </html:div>
+</groupbox>
