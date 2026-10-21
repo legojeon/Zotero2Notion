@@ -107,6 +107,7 @@ Install the latest XPI over the existing plugin to update. Releases from **0.1.1
 - [x] Automatic metadata sync and customizable Markdown templates
 - [x] Publish an update feed for Zotero’s plugin updater
 - [ ] Verify automatic upgrades between releases on macOS and Windows
+- [ ] Discuss tag sync policy: overwriting tags from Zotero and preserving tags added in Notion
 - [ ] Sync Zotero notes and PDF annotations
 - [ ] Include images and attachments in synced notes
 - [ ] Import and export custom templates from settings
