@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.13 — 2026-10-22
+
+- Restore a linked Notion page from the trash when its paper is explicitly sent with **Send to Notion**, preserving its page URL, personal notes, and reading status.
+- Keep automatic sync, library rechecks, and retries from restoring trashed pages; show the manual recovery action in the error message.
+- Validate the destination and Zotero key before restoring, and prevent duplicate pages after restoration or an interrupted response.
+
 ## 0.1.12 — 2026-10-22
 
 - Add `[zotero_notes]` as an optional block placeholder, included in both English example templates.

@@ -92,6 +92,13 @@ function fixture() {
         p.properties[k] = { type: Object.keys(v)[0], ...v };
       return p;
     },
+    async restore(id) {
+      calls.push("restore");
+      const p = pages.find((p) => p.id === id);
+      p.in_trash = false;
+      p.archived = false;
+      return structuredClone(p);
+    },
     async markdown() {
       return { markdown: body };
     },
@@ -277,8 +284,117 @@ test("archived page does not get recreated", async () => {
   const f = fixture();
   await f.engine.run(f.item, f.c, {});
   f.pages[0].in_trash = true;
-  await assert.rejects(f.engine.run(f.item, f.c, {}), /trash/);
+  await assert.rejects(f.engine.run(f.item, f.c, {}), /trash.*Send to Notion/);
   assert.equal(f.pages.length, 1);
+  assert(!f.calls.includes("restore"));
+});
+
+test("explicit send restores the same page and preserves notes, reading status and binding", async () => {
+  const f = fixture();
+  f.pages = [page({ ...f.v, Status: "Reading" })];
+  f.body = "My reading notes and annotations";
+  await f.engine.run(f.item, f.c, {});
+  const record = f.store.state.records["db:1:ABC"];
+  f.pages[0].in_trash = true;
+  f.calls.length = 0;
+  f.v.Authors = "Updated author";
+  await f.engine.run(f.item, f.c, {}, { restoreTrashed: true });
+  await f.engine.run(f.item, f.c, {}, { restoreTrashed: true });
+  assert.equal(f.pages.length, 1);
+  assert.equal(f.pages[0].in_trash, false);
+  assert.equal(f.body, "My reading notes and annotations");
+  assert.equal(decodePage(f.pages[0], f.c.mapping).Status, "Reading");
+  assert.equal(decodePage(f.pages[0], f.c.mapping).Authors, "Updated author");
+  assert.equal(record.pageID, "page");
+  assert.equal(record.url, "https://notion.so/page");
+  assert.equal(f.calls.filter((c) => c === "restore").length, 1);
+  assert(!f.calls.includes("body"));
+  assert(!f.calls.includes("create"));
+});
+
+test("restore checks the database and Zotero owner before modifying a trashed page", async () => {
+  for (const conflict of ["database", "owner"]) {
+    const f = fixture();
+    await f.engine.run(f.item, f.c, {});
+    f.pages[0].in_trash = true;
+    if (conflict === "database") f.pages[0].parent.data_source_id = "other";
+    else f.pages[0].properties["Zotero Key"].rich_text = richText("1:OTHER");
+    f.calls.length = 0;
+    await assert.rejects(f.engine.run(f.item, f.c, {}, { restoreTrashed: true }), /another database|different Zotero/);
+    assert.deepEqual(f.calls, []);
+    assert.equal(f.pages[0].in_trash, true);
+  }
+});
+
+test("failed or unconfirmed restoration never creates a replacement or edits content", async () => {
+  for (const result of ["failure", "still trashed", "wrong page", "wrong parent", "wrong owner"]) {
+    const f = fixture();
+    await f.engine.run(f.item, f.c, {});
+    f.pages[0].in_trash = true;
+    f.calls.length = 0;
+    f.api.restore = async () => {
+      if (result === "failure") throw Error("Permission denied");
+      const p = structuredClone(f.pages[0]);
+      if (result !== "still trashed") p.in_trash = false;
+      if (result === "wrong page") p.id = "other";
+      if (result === "wrong parent") p.parent.data_source_id = "other";
+      if (result === "wrong owner") p.properties["Zotero Key"].rich_text = richText("1:OTHER");
+      return p;
+    };
+    await assert.rejects(f.engine.run(f.item, f.c, {}, { restoreTrashed: true }));
+    assert.deepEqual(f.calls, []);
+    assert.equal(f.pages.length, 1);
+    assert.equal(f.store.state.records["db:1:ABC"].pageID, "page");
+  }
+});
+
+test("a lost restore response resumes against the restored original page", async () => {
+  const f = fixture();
+  await f.engine.run(f.item, f.c, {});
+  f.pages[0].in_trash = true;
+  f.calls.length = 0;
+  const restore = f.api.restore;
+  f.api.restore = async (id) => { await restore(id); throw Error("Response lost"); };
+  await assert.rejects(f.engine.run(f.item, f.c, {}, { restoreTrashed: true }), /Response lost/);
+  f.v.Authors = "Updated after restoring";
+  await f.engine.run(f.item, f.c, {});
+  assert.equal(f.pages.length, 1);
+  assert.deepEqual(f.calls, ["restore", "update"]);
+});
+
+test("restored pages join the active batch cache to prevent a later duplicate", async () => {
+  const f = fixture();
+  await f.engine.run(f.item, f.c, {});
+  f.pages[0].in_trash = true;
+  const context = { rows: [] };
+  await f.engine.run(f.item, f.c, context, { restoreTrashed: true });
+  assert.equal(context.rows.length, 1);
+  await assert.rejects(f.engine.run(
+    { ...f.item, values: { ...f.v, "Zotero Key": "1:SECOND" } }, f.c, context,
+  ), /different Zotero/);
+  assert.equal(f.pages.length, 1);
+});
+
+test("an inaccessible linked page is never replaced, even on explicit send", async () => {
+  const f = fixture();
+  f.store.state.records["db:1:ABC"] = { pageID: "missing" };
+  await assert.rejects(f.engine.run(f.item, f.c, {}, { restoreTrashed: true }), /404/);
+  assert.deepEqual(f.calls, []);
+  assert.equal(f.store.state.records["db:1:ABC"].pageID, "missing");
+});
+
+test("restore uses the current Notion trash field without changing properties or body", async () => {
+  const api = new NotionClient({
+    token: async () => "test",
+    fetch: async (url, options) => {
+      assert.equal(url, "https://api.notion.com/v1/pages/page");
+      assert.equal(options.method, "PATCH");
+      assert.deepEqual(JSON.parse(options.body), { in_trash: false });
+      assert.equal(options.headers["Notion-Version"], "2026-03-11");
+      return new Response(JSON.stringify({ id: "page", in_trash: false }));
+    },
+  });
+  assert.equal((await api.restore("page")).in_trash, false);
 });
 test("a different Zotero record cannot overwrite canonical source", async () => {
   const f = fixture();

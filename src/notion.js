@@ -145,6 +145,9 @@ export class NotionClient {
   update(id, properties) {
     return this.request("PATCH", `/pages/${id}`, { properties });
   }
+  restore(id) {
+    return this.request("PATCH", `/pages/${id}`, { in_trash: false });
+  }
   create(id, properties) {
     return this.request(
       "POST",

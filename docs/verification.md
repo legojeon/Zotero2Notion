@@ -1,6 +1,6 @@
 # Verification
 
-The implementation has **93 automated tests**, covering page matching and duplicates, interrupted writes, template substitution, property handling, automatic activation, autosave, database setup recovery, and credential handling.
+The implementation has **106 automated tests**, covering page matching and duplicates, interrupted writes, template substitution, property handling, automatic activation, autosave, database setup recovery, and credential handling.
 
 The 0.1.9 runtime was tested in an isolated **Zotero 10.0.6 on macOS** profile with mocked Notion responses. Checks included PAT entry, database creation with 27 fields, repeated creation without duplicates, disconnect/reconnect, Refresh/Use, sync activation, and settings layout at normal and narrow widths. The installed XPI was also checked in the normal Zotero settings UI.
 
@@ -19,3 +19,7 @@ An isolated Zotero 10.0.6 profile on macOS verified real child-note extraction, 
 A separate private, synthetic Notion test page verified placement in the middle of an outline, two child notes, actual image upload and attachment, inline/block equations, repeat sync without duplicates, independent image-containing note replacement, preservation of other notes and personal text, conflict detection/recovery, and later note addition. Testing exposed and fixed escaped marker readback, the image block upload patch format, and changing signed image URLs. Image-containing replacements use a uniquely bounded range after a fresh content comparison; they cannot guarantee atomic protection against simultaneous Notion edits. The private test page was removed after verification.
 
 The 0.1.12 XPI was installed in the normal Zotero profile. The plugin manager shows 0.1.12; settings expose the new placeholder instructions; the bundled Paper review outline contains `[zotero_notes]`; and the custom Korean template and default selection remain unchanged. Installed XPI bytes match the release artifact.
+
+Version 0.1.13 adds tests for explicit-send restoration, preservation of page identity/content/status, permission and response failures, ownership/destination checks, same-batch duplicate prevention, per-item queue isolation, library rechecks, scheduled retries, in-flight requests, destination changes, and restarted queues. All 106 automated tests pass. The restore payload follows the [Notion trash/restore API](https://developers.notion.com/reference/trash-page).
+
+The 0.1.13 XPI was installed in Zotero 10.0.6 on macOS and the app was restarted. Automatic retries left an existing trashed paper unchanged; the item context-menu **Send to Notion** action restored that exact page with the same URL, outline, and reading status. Its separate note import paused with the expected missing-placeholder guidance because its older outline lacks the custom template’s middle insertion marker. Existing settings and all custom template files remained byte-for-byte unchanged.

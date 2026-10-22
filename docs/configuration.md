@@ -95,6 +95,7 @@ Without rules, every new page uses the default template. Choose **Default templa
 - Page outlines are inserted once into new pages, or eligible empty pages marked `Not started`. Personal page content and reading status are preserved; opted-in child notes update separately.
 - Project is derived from the collection name only when an item is in exactly one collection. A manually changed Project value is preserved.
 - Items removed from Zotero do not delete Notion pages. Inaccessible or trashed linked Notion pages are not automatically recreated.
+- To restore a linked Notion page from the trash, right-click its paper in Zotero and choose **Send to Notion**. The original page is restored and synced, preserving its URL, personal notes, and reading status. **Retry failed**, **Recheck library**, and automatic sync do not restore trashed pages. If restoration fails or Zotero closes before the attempt, use **Send to Notion** again; a missing or inaccessible page is never replaced automatically.
 
 ## Recovery
 

@@ -27,6 +27,7 @@ const app = {
     this.id = id;
     this.rootURI = rootURI;
     this.stopped = false;
+    this.restoreRequests = new Set();
     this.store = new Store(
       PathUtils.join(Zotero.DataDirectory.dir, "zotero2notion"),
     );
@@ -98,13 +99,7 @@ const app = {
         "sync",
         "main/library/item",
         "z2n-send",
-        async (ctx) => {
-          await this.autosave.flush();
-          await this.enqueue(
-            ctx.items.map((i) => i.id),
-            true,
-          );
-        },
+        (ctx) => this.sendItems(ctx.items.map((i) => i.id)),
       ],
       [
         "settings",
@@ -146,6 +141,7 @@ const app = {
   },
   async stop() {
     this.stopped = true;
+    this.restoreRequests?.clear();
     this.timers?.clearTimeout(this.activationTimer);
     const w = Zotero.getMainWindow();
     w?.clearTimeout(this.timer);
@@ -297,7 +293,11 @@ const app = {
     w.clearTimeout(this.timer);
     this.timer = w.setTimeout(() => this.drain(), 1200);
   },
-  async enqueue(ids, manual = false, source = this.store.config.dataSourceID) {
+  async sendItems(ids) {
+    await this.autosave.flush();
+    return this.enqueue(ids, true, this.store.config.dataSourceID, { restoreTrashed: true });
+  },
+  async enqueue(ids, manual = false, source = this.store.config.dataSourceID, { restoreTrashed = false } = {}) {
     // Item changes may arrive while an automatic settings save is in progress.
     while (this.busy && !this.stopped)
       await new Promise((resolve) => this.timers.setTimeout(resolve, 25));
@@ -307,6 +307,10 @@ const app = {
     const valid = items
       .filter((i) => i && inScope(i, this.store.config))
       .map((i) => i.id);
+    // Only an explicit Send to Notion grants one restore attempt per selected item.
+    // Keep it in memory and scoped to the destination, never in the retry queue.
+    if (restoreTrashed)
+      for (const id of valid) this.restoreRequests.add(`${source}:${id}`);
     if (this.currentID && valid.includes(this.currentID))
       this.dirty.add(this.currentID);
     this.store.state.pending = [
@@ -345,6 +349,7 @@ const app = {
       while (this.store.state.pending.length && !this.stopped) {
         const id = this.store.state.pending[0];
         this.currentID = id;
+        const restoreTrashed = this.restoreRequests?.delete(`${config.dataSourceID}:${id}`) || false;
         try {
           const item = await Zotero.Items.getAsync(id);
           if (item && inScope(item, config)) {
@@ -353,6 +358,7 @@ const app = {
               await extractItem(item, config.citationStyle),
               config,
               context,
+              { restoreTrashed },
             );
           }
         } catch (e) {
@@ -423,6 +429,7 @@ const app = {
         this.store.config.databaseName = "";
         this.store.config.autoSync = false;
         this.store.state.pending = [];
+        this.restoreRequests?.clear();
         await this.store.saveConfig();
         await this.store.saveState();
       }
@@ -435,6 +442,7 @@ const app = {
       await this.credentials.clear();
       this.store.config.autoSync = false;
       this.store.state.pending = [];
+      this.restoreRequests?.clear();
       await this.store.saveState();
       await this.store.saveConfig();
       this.timers.clearTimeout(this.activationTimer);
@@ -457,6 +465,7 @@ const app = {
       config.databaseName = name;
       config.autoSync = false;
       this.store.state.pending = [];
+      this.restoreRequests?.clear();
       const title = Object.entries(data.properties).find(
         ([, p]) => p.type === "title",
       )?.[0];
@@ -489,6 +498,7 @@ const app = {
         throw error;
       }
       // Preserve queued item IDs; the initial scan merges them for the new destination.
+      if (changed) this.restoreRequests?.clear();
       this.requestSyncActivation(changed);
       this.log("JournalDB connected. Automatic sync will start shortly.");
       return destination;

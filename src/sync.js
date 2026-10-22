@@ -8,12 +8,26 @@ import {
   renderTemplate,
 } from "./model.js";
 import { NotesSync, notesPlacement } from "./notes.js";
+
+function checkLinkedPage(page, source, key, mapping) {
+  if (page.parent?.data_source_id !== source)
+    throw new Error(
+      "The linked page has moved to another database. Check the destination database.",
+    );
+  const existing = decodePage(page, mapping);
+  if (existing["Zotero Key"] && existing["Zotero Key"] !== key)
+    throw new Error(
+      "This paper is linked to a different Zotero item. Check the original item.",
+    );
+  return existing;
+}
+
 export class SyncEngine {
   constructor({ api, store, readTemplate, readNotes = async () => [], renderNote, log = () => {} }) {
     Object.assign(this, { api, store, readTemplate, log });
     this.notes = new NotesSync({ api, store, readNotes, renderNote });
   }
-  async run(item, config, context) {
+  async run(item, config, context, { restoreTrashed = false } = {}) {
     const id = config.dataSourceID;
     if (!id) throw new Error("Choose a destination Notion database first.");
     const key = `${id}:${item.values["Zotero Key"]}`;
@@ -32,14 +46,6 @@ export class SyncEngine {
     let page;
     if (record.pageID) {
       page = await this.api.page(record.pageID);
-      if (page.in_trash || page.archived)
-        throw new Error(
-          "The linked page is in the trash. It will not be recreated automatically.",
-        );
-      if (page.parent?.data_source_id !== id)
-        throw new Error(
-          "The linked page has moved to another database. Check the destination database.",
-        );
     } else {
       context.rows ||= await this.api.rows(id);
       page = matchExisting(item.values, context.rows, config.mapping);
@@ -49,12 +55,21 @@ export class SyncEngine {
         );
     }
     if (page) {
-      const existing = decodePage(page, config.mapping);
-      const owner = existing["Zotero Key"];
-      if (owner && owner !== item.values["Zotero Key"])
-        throw new Error(
-          "This paper is linked to a different Zotero item. Check the original item.",
-        );
+      let existing = checkLinkedPage(page, id, item.values["Zotero Key"], config.mapping);
+      if (page.in_trash || page.archived) {
+        if (!restoreTrashed)
+          throw new Error(
+            "The linked page is in the trash. Right-click this item in Zotero and choose Send to Notion to restore it.",
+          );
+        const restored = await this.api.restore(page.id);
+        if (restored?.id !== page.id || restored.in_trash !== false || restored.archived)
+          throw new Error(
+            "Notion could not confirm the page was restored. Check the page and its parent in Notion, then use Send to Notion again.",
+          );
+        existing = checkLinkedPage(restored, id, item.values["Zotero Key"], config.mapping);
+        page = restored;
+        this.log(`Restored · ${item.values["Journal Name"]}`);
+      }
       const properties = encodeProperties(item.values, schema, config.mapping, {
         existing,
         managedProject: record.managedProject,
@@ -70,6 +85,7 @@ export class SyncEngine {
       if (context.rows) {
         const index = context.rows.findIndex((p) => p.id === page.id);
         if (index >= 0) context.rows[index] = page;
+        else context.rows.push(page);
       }
     } else {
       const properties = encodeProperties(
