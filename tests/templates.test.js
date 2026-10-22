@@ -355,3 +355,20 @@ test("retired authentication service settings are removed without changing templ
     expected,
   );
 });
+
+test('upgrade adds the notes token only to exact previous built-in outlines', async (t) => {
+ const store=await fixture(t);await store.init(addon);
+ for(const template of BUILTIN_TEMPLATES){await store.saveTemplate(template,await readFile(new URL('fixtures/v011-'+template.file,import.meta.url),'utf8'));}
+ delete store.config.notesTemplateRevision;await store.saveConfig();const next=new Store(store.root);await next.init(addon);
+ for(const template of BUILTIN_TEMPLATES)assert((await next.readTemplate(template)).includes('[zotero_notes]'));
+ const custom=next.config.templates[0];await next.saveTemplate(custom,'# My layout\n');
+ const reopened=new Store(store.root);await reopened.init(addon);assert.equal(await reopened.readTemplate(custom),'# My layout\n');
+});
+
+
+test('removing the notes token from a shipped template stays opt-out across restarts', async (t) => {
+ const store=await fixture(t);await store.init(addon);const template=BUILTIN_TEMPLATES[0];
+ const old=await readFile(new URL('fixtures/v011-'+template.file,import.meta.url),'utf8');
+ await store.saveTemplate(template,old);const next=new Store(store.root);await next.init(addon);
+ assert.equal(await next.readTemplate(template),old);
+});

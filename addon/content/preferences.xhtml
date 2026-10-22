@@ -108,7 +108,7 @@
         </div>
       </div>
       <textarea id="z2n-markdown" spellcheck="false"></textarea>
-      <small>Applies to new pages.</small>
+      <small>Outlines apply to new pages. Included Zotero notes stay in sync.</small>
       <pre id="z2n-preview-text" aria-label="Template preview" hidden=""></pre>
       <details>
         <summary>Variables</summary>
@@ -124,7 +124,10 @@
           <code>[paper_link]</code>
           ·
           <code>[zotero_link]</code>
+          ·
+          <code>[zotero_notes]</code>
         </p>
+        <small>Put [zotero_notes] once on its own line to include child notes. Remove it to stop note syncing. Empty notes are omitted.</small>
         <small>Database properties are also available:</small>
         <p id="z2n-variables"></p>
       </details>

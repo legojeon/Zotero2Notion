@@ -523,7 +523,7 @@ window.Z2NPreferences = {
         $("unresolved").append(row);
       }
       if (!keys.length && !stage) {
-        $("unresolved").textContent = "No incomplete page creation records.";
+        $("unresolved").textContent = "No incomplete records or note conflicts.";
         return;
       }
       for (const key of keys) {
@@ -533,11 +533,14 @@ window.Z2NPreferences = {
         name.textContent = key;
         row.append(name);
         const b = make("button");
-        b.textContent = "Check page";
+        const notes = app.isNotesRecovery(key);
+        b.textContent = notes ? "Keep current notes" : "Check page";
         b.onclick = action(async () => {
           if (
             !window.confirm(
-              "Recheck the Notion database and allow creation if no matching key is found? Confirm that no duplicate page exists in Notion before continuing.",
+              notes
+                ? "Review this paper in Notion first. Keep its current notes as the synced version? Future Zotero edits can update them. If a previous note creation timed out, confirm that no duplicate section exists."
+                : "Recheck the Notion database and allow creation if no matching key is found? Confirm that no duplicate page exists in Notion before continuing.",
             )
           )
             return;

@@ -377,3 +377,20 @@ test("empty saved template never creates a Notion page", async () => {
   await assert.rejects(f.engine.run(f.item, f.c, {}), /template is empty/);
   assert.deepEqual(f.calls, []);
 });
+
+test('page sync includes opt-in notes and later metadata updates preserve the personal outline', async () => {
+  const f = fixture();
+  f.v['Zotero URI'] = 'https://www.zotero.org/users/1/items/ABC';
+  f.engine.readTemplate = async () => '# [title]\n[zotero_notes]\n## My reading';
+  f.engine.notes.readNotes = async () => [{key:'1:N',title:'Source',html:'<p>[authors] stays literal</p>',uri:'https://www.zotero.org/users/1/items/N'}];
+  f.engine.notes.renderNote = async () => ({markdown:'[authors] stays literal'});
+  f.api.editMarkdown = async (id, oldText, newText) => { assert.equal(f.body.split(oldText).length,2);f.body=f.body.replace(oldText,()=>newText);return {markdown:f.body} };
+  await f.engine.run(f.item,f.c,{});
+  assert(f.body.includes('# A Paper'));assert(f.body.includes('[authors] stays literal'));assert(!f.body.includes('[zotero_notes]'));
+  f.body+='\nPersonal conclusions';const body=f.body;f.v.Authors='Changed metadata';
+  await f.engine.run(f.item,f.c,{});assert.equal(f.body,body);assert.equal(f.pages.length,1);
+});
+test('invalid note placement fails before creating a database row',async()=>{
+  const f=fixture();f.engine.readTemplate=async()=> 'inline [zotero_notes]';
+  await assert.rejects(f.engine.run(f.item,f.c,{}),/own line/);assert.equal(f.pages.length,0);
+});

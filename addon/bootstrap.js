@@ -17,6 +17,9 @@ async function startup({ id, resourceURI, rootURI = resourceURI.spec }) {
     TextEncoder: w.TextEncoder,
     TextDecoder: w.TextDecoder,
     AbortSignal: w.AbortSignal,
+    crypto: w.crypto,
+    Blob: w.Blob,
+    FormData: w.FormData,
     structuredClone: w.structuredClone.bind(w),
   };
   Services.scriptloader.loadSubScript(rootURI + "content/plugin.js", scope);

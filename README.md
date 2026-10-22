@@ -17,6 +17,7 @@
 Add a paper to Zotero and get a Notion database entry with its metadata and a customizable space to study and organize what you learn. Later metadata updates preserve the notes you write in Notion.
 
 - **Automatic sync:** existing and newly added items in **My Library**.
+- **Zotero notes:** place `[zotero_notes]` in your outline to include child notes and embedded images.
 - **Your own templates:** edit Markdown in Zotero settings, with automatic saving.
 - **Flexible layouts:** choose a default template or apply different ones by collection or tag.
 - **Direct connection:** use your own Notion personal access token (PAT). No hosted authentication service or separate sync app.
@@ -71,11 +72,13 @@ Use any structure that helps you learn: rename headings, add or remove sections,
 ## Evidence
 
 ## My notes
+
+[zotero_notes]
 ```
 
 Variables also accept property names such as `[Abstract]`, `[Full Citation]`, and `[Project]`. Choose **Default template** in **Templates**, or add collection/tag rules under **Template rules**. The first matching rule wins.
 
-Templates populate the page once. Editing a template applies to future page creation; it does not rewrite existing notes. **The plugin creates outlines, not AI-generated paper summaries.**
+The outline populates the page once. Editing it applies to future page creation. Both included examples also contain `[zotero_notes]`: put it once on its own line to include the paper’s child notes there, or remove it to stop importing notes. Multiple notes appear as separate toggles inside **Zotero Notes**; papers without notes get no empty section. Imported notes stay in sync, while your other page content is preserved. Customized templates are kept unchanged on upgrade—add the placeholder yourself to opt in. **The plugin creates outlines, not AI-generated paper summaries.**
 
 ## What syncs
 
@@ -83,11 +86,12 @@ Templates populate the page once. Editing a template applies to future page crea
 |---|---|
 | Title, authors, editors, abstract, venue, dates, citations, links, and other bibliographic fields | Sent from Zotero to mapped Notion properties |
 | Tags and collections | Kept in sync, including removals |
-| Reading status and page body | Preserved after creation |
+| Reading status and personal page content | Preserved after creation |
+| Child notes, when `[zotero_notes]` is present | Added as individual toggles; changed notes update independently. Detected Notion-side edits stop a conflicting update for review |
 | Project | Uses the collection name when the item belongs to exactly one collection; preserves a manually changed value |
-| Local attachment paths | Sent as text when `File Path` is mapped; files themselves are not uploaded |
+| Local attachment paths | Sent as text when `File Path` is mapped; PDFs and general attachments are not uploaded |
 
-Sync is one-way: **Zotero → Notion**. Group libraries, trash, standalone notes, PDFs, and annotations are not synced. The plugin does not delete Notion pages when Zotero items are removed.
+Sync is one-way: **Zotero → Notion**. Group libraries, trash, standalone notes, PDFs, and direct PDF annotations are not synced. An annotation already included in a child note travels with that note. Deleting a Zotero item or note does not delete its existing Notion content. Removing the placeholder also preserves previously imported notes. See the [note-sync guide](docs/configuration.md#zotero-notes) for formatting support and conflict recovery.
 
 See the [user guide](docs/configuration.md) for all 27 default properties, matching rules, and recovery controls.
 
@@ -110,8 +114,8 @@ Install the latest XPI over the existing plugin to update. Releases from **0.1.1
 - [ ] Discuss tag sync policy: overwriting tags from Zotero and preserving tags added in Notion
 - [ ] Discuss missing-property handling: setup guidance, automatic creation, and property type conflicts
 - [ ] Discuss Project assignment when a paper belongs to multiple projects or Zotero collections
-- [ ] Sync Zotero notes and PDF annotations
-- [ ] Include images and attachments in synced notes
+- [x] Place multiple child notes with `[zotero_notes]` and sync embedded images
+- [ ] Sync PDF annotations directly and support additional attachment types
 - [ ] Import and export custom templates from settings
 
 Planned features may evolve based on feedback and testing.

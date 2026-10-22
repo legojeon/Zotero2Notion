@@ -23,3 +23,5 @@ Original PDFs are not distributed. Zotero and Notion names and marks belong to t
 ## Build dependencies
 
 esbuild is a development dependency under the MIT license. Its license is installed at `node_modules/esbuild/LICENSE.md`. The esbuild executable is not included in the plugin XPI.
+
+linkedom is a test-only dependency under the ISC license. Its license is installed at `node_modules/linkedom/LICENSE`. Neither it nor its dependencies are bundled in the plugin XPI.

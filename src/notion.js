@@ -12,7 +12,7 @@ export class NotionClient {
   }) {
     Object.assign(this, { token, fetch, sleep });
   }
-  async request(method, path, body, { safe = true } = {}) {
+  async request(method, path, body, { safe = true, multipart = false } = {}) {
     const token = await this.token();
     for (let n = 0; n < 4; n++) {
       let response;
@@ -22,9 +22,9 @@ export class NotionClient {
           headers: {
             Authorization: `Bearer ${token}`,
             "Notion-Version": "2026-03-11",
-            "Content-Type": "application/json",
+            ...(multipart ? {} : { "Content-Type": "application/json" }),
           },
-          body: body === undefined ? undefined : JSON.stringify(body),
+          body: body === undefined ? undefined : multipart ? body : JSON.stringify(body),
           signal: AbortSignal.timeout(45000),
         });
       } catch {
@@ -160,14 +160,82 @@ export class NotionClient {
     return this.request("GET", `/pages/${id}/markdown`);
   }
   appendMarkdown(id, content) {
+    return this.insertMarkdown(id, content, "end");
+  }
+  insertMarkdown(id, content, position) {
     return this.request(
       "PATCH",
       `/pages/${id}/markdown`,
       {
         type: "insert_content",
-        insert_content: { content, position: { type: "end" } },
+        insert_content: { content, position: { type: position } },
       },
       { safe: false },
     );
+  }
+  editMarkdown(id, old_str, new_str) {
+    return this.request("PATCH", `/pages/${id}/markdown`, {
+      type: "update_content",
+      update_content: { content_updates: [{ old_str, new_str }] },
+    }, { safe: false });
+  }
+  replaceNoteRange(id, content_range, content) {
+    return this.request("PATCH", `/pages/${id}/markdown`, {
+      type: "replace_content_range",
+      replace_content_range: { content_range, content },
+    }, { safe: false });
+  }
+  async uploadNoteImage(bytes, contentType) {
+    if (!bytes.length || bytes.length > 20 * 1024 * 1024)
+      throw new Error("A note image is empty or larger than 20 MB. Resize it in Zotero before syncing.");
+    const extensions = { "image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/webp": "webp" };
+    if (!extensions[contentType]) throw new Error("Convert this note image to PNG, JPEG, GIF, or WebP before syncing.");
+    const filename = "note-image." + extensions[contentType];
+    const upload = await this.request("POST", "/file_uploads", {
+      mode: "single_part", filename, content_type: contentType,
+    }, { safe: false });
+    const form = new FormData();
+    form.append("file", new Blob([bytes], { type: contentType }), filename);
+    const result = await this.request("POST", `/file_uploads/${upload.id}/send`, form, { safe: false, multipart: true });
+    if (result.status !== "uploaded") throw new Error("Notion could not finish uploading a note image.");
+    return upload.id;
+  }
+  async children(id) {
+    const blocks = [];
+    let cursor;
+    do {
+      const result = await this.request("GET", `/blocks/${id}/children?page_size=100${cursor ? "&start_cursor=" + encodeURIComponent(cursor) : ""}`);
+      blocks.push(...result.results);
+      cursor = result.has_more ? result.next_cursor : null;
+    } while (cursor);
+    return blocks;
+  }
+  async finishNoteImages(pageID, images, allowMissing = false) {
+    if (!images.length) return;
+    const pending = new Map(images.map((image) => [image.marker, image]));
+    const visit = async (id, noteScope = null) => {
+      for (const block of await this.children(id)) {
+        let scope = noteScope;
+        if (block.type === "toggle") {
+          const links = (block.toggle.rich_text || []).map((r) => r.href || r.text?.link?.url);
+          scope = images.find((image) => links.includes(image.noteLink))?.noteLink || scope;
+        }
+        if (block.type === "image" && scope) {
+          const marker = (block.image.caption || []).map((r) => r.plain_text ?? r.text?.content ?? "").join("");
+          const image = pending.get(marker);
+          if (image?.noteLink === scope) {
+            await this.request("PATCH", `/blocks/${block.id}`, { image: {
+              file_upload: { id: image.id },
+              caption: image.caption ? [{ type: "text", text: { content: image.caption.slice(0, 2000) } }] : [],
+            } });
+            pending.delete(marker);
+          }
+        }
+        if (block.has_children && !["child_page", "child_database", "synced_block"].includes(block.type))
+          await visit(block.id, scope);
+      }
+    };
+    await visit(pageID);
+    if (pending.size && !allowMissing) throw new Error("A note image could not be located after upload. Review Check incomplete.");
   }
 }

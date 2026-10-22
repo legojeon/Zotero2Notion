@@ -71,6 +71,25 @@ export class Store {
         changed = true;
       }
     }
+    if (!this.config.notesTemplateRevision) {
+      // Upgrade only exact shipped v0.1.11 outlines. Custom templates are opt-in.
+      const previousHashes = {
+        "paper-review-en.md": "49cd22c9a7b00069bc6863a43025b133cc130e98d859d386c051b19fb23c927f",
+        "section-summary-en.md": "d6b84b861a566bfe74b751ba608827710525bf93bc1aa0af65eef3febcf7ebb7",
+      };
+      for (const builtin of BUILTIN_TEMPLATES) {
+        const template = this.config.templates.find((t) => t.id === builtin.id);
+        if (template?.file !== builtin.file || !(await IOUtils.exists(this.templatePath(template)))) continue;
+        const bytes = new TextEncoder().encode(await this.readTemplate(template));
+        const digest = await Zotero.getMainWindow().crypto.subtle.digest("SHA-256", bytes);
+        const hash = Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+        if (hash === previousHashes[builtin.file]) {
+          await this.saveTemplate(template, await Zotero.File.getResourceAsync(rootURI + "templates/" + builtin.file));
+        }
+      }
+      this.config.notesTemplateRevision = 1;
+      changed = true;
+    }
     const legacy = this.config.templates.find((t) => t.id === "paper-review");
     if (legacy?.name !== "Paper review" || legacy.file !== "paper-review.md")
       return changed;

@@ -23,7 +23,9 @@ GitHub Actions runs the same checks on pushes and pull requests. Use an isolated
 | `src/setup.js` | Resumable database creation |
 | `src/sync.js` | Page matching, metadata updates, body preservation |
 | `src/model.js` | Properties, template variables, matching rules |
-| `src/zotero.js` | Metadata extraction |
+| `src/zotero.js` | Metadata/child-note extraction and embedded-image access |
+| `src/notes.js` | Opt-in placement, per-note sync state, and conflict recovery |
+| `src/note-html.js` | Zotero note HTML to Notion Markdown conversion |
 | `src/storage.js` | Settings, templates, credential storage |
 | `src/autosave.js` | Save batching and retry |
 | `src/preferences.js` | Settings behavior |
@@ -41,3 +43,5 @@ GitHub Actions runs the same checks on pushes and pull requests. Use an isolated
 The updater is hosted in GitHub Releases; no separate server is needed. Keep the existing plugin ID so installed copies receive updates. Versions before 0.1.10 must be updated manually once to adopt the public update URL.
 
 `Z2N_UPDATE_URL` can override the update manifest URL for a development build. Forks should also update the package repository URL and choose their own plugin ID before distributing releases.
+
+`linkedom` is used only in Node tests to parse fixture HTML. The plugin uses Zotero’s DOM parser and does not bundle a DOM library. `tests/runtime-notes.js` is an isolated-profile test harness; it refuses a regular data directory and does not connect to Notion.

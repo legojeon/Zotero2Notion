@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.12 — 2026-10-22
+
+- Add `[zotero_notes]` as an optional block placeholder, included in both English example templates.
+- Import multiple child notes as separate toggles, with common formatting, LaTeX, simple tables, and embedded images.
+- Update changed notes independently, preserve personal page content, and pause detected conflicts or unconfirmed writes for review.
+- Preserve imported notes when source notes or the placeholder are removed.
+- Upgrade untouched built-in outlines while preserving custom templates and the default selection.
+
 ## 0.1.11 — 2026-10-22
 
 - Show Add missing directly in Zotero when required database properties are absent, and direct type conflicts to Property mapping.

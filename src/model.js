@@ -41,6 +41,7 @@ export const BUILTIN_TEMPLATES = [
 ];
 export const initialConfig = () => ({
   version: 1,
+  notesTemplateRevision: 1,
   dataSourceID: "",
   databaseName: "",
   autoSync: false,
@@ -87,6 +88,7 @@ export function renderTemplate(md, properties) {
       : "",
   });
   // Single pass: values containing another token or LaTeX are never interpreted again.
+  delete values.zotero_notes; // Reserved block insertion point, not a property.
   return md.replace(/\[([^\]\n]+)\]/g, (token, k) =>
     Object.hasOwn(values, k) ? values[k] : token,
   );

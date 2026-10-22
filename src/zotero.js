@@ -1,3 +1,6 @@
+import { noteHTMLToMarkdown } from "./note-html.js";
+import { escapeNoteText, noteLink } from "./notes.js";
+
 export function allCollections() {
   return Zotero.Libraries.getAll().flatMap((l) =>
     Zotero.Collections.getByLibrary(l.libraryID).map((c) => ({
@@ -130,4 +133,51 @@ export function inScope(item, config) {
     !item.deleted &&
     item.libraryID === Number(config.libraryID)
   );
+}
+
+export async function extractNotes(source) {
+  const parent = await Zotero.Items.getAsync(source.id);
+  if (!parent?.isRegularItem()) return [];
+  const parser = new (Zotero.getMainWindow().DOMParser)();
+  const notes = await Zotero.Items.getAsync(parent.getNotes());
+  return notes.filter((note) => note?.isNote() && !note.deleted && note.parentID === parent.id)
+    .map((note) => ({
+      id: note.id, libraryID: note.libraryID, key: `${note.libraryID}:${note.key}`,
+      title: note.getNoteTitle() || "Untitled note", html: note.getNote(),
+      uri: Zotero.URI.getItemURI(note).replace(/^http:/, "https:"),
+    }))
+    .filter((note) => {
+      const body = parser.parseFromString(note.html, "text/html").body;
+      return !!body.textContent.trim() || !!body.querySelector("img");
+    });
+}
+
+export async function renderZoteroNote(note, api, preview = false) {
+  const parser = new (Zotero.getMainWindow().DOMParser)();
+  const images = [];
+  const markdown = await noteHTMLToMarkdown(note.html, {
+    parse: (html) => parser.parseFromString(html, "text/html"),
+    image: async (node) => {
+      const caption = node.getAttribute("alt") || "";
+      if (preview) return `[${escapeNoteText(caption || "Image — opens in Zotero")}](${note.uri})`;
+      const key = node.getAttribute("data-attachment-key");
+      if (!key) {
+        const src = node.getAttribute("src") || "";
+        if (/^https?:\/\//i.test(src))
+          return `![${escapeNoteText(caption)}](${src.replace(/[\s()<>]/g, (c) => encodeURIComponent(c))})`;
+        throw new Error("A note image has no accessible attachment. Reinsert the image in Zotero before syncing.");
+      }
+      const attachment = Zotero.Items.getByLibraryAndKey(note.libraryID, key);
+      if (!attachment || attachment.parentID !== note.id)
+        throw new Error("A note image is missing from Zotero. Download it before syncing.");
+      const path = await attachment.getFilePathAsync();
+      if (!path || !(await IOUtils.exists(path)))
+        throw new Error("A note image is not downloaded. Download it in Zotero before syncing.");
+      const id = await api.uploadNoteImage(await IOUtils.read(path), attachment.attachmentContentType);
+      const marker = `z2n-image-${id}`;
+      images.push({ id, marker, caption, noteLink: noteLink(note) });
+      return `![${marker}](file-upload://${id})`;
+    },
+  });
+  return { markdown, images };
 }

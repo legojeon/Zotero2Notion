@@ -62,8 +62,25 @@ Use a Notion property name in brackets, such as `[Abstract]`, `[Full Citation]`,
 | `[year]` | Publication year |
 | `[paper_link]` | Markdown link to the source |
 | `[zotero_link]` | Markdown link to the Zotero item |
+| `[zotero_notes]` | Child-note section; use once on its own line |
 
 Custom Notion properties can be read when the page is created. Text, number, select, multi-select, date, checkbox, and URL values are supported; relation, rollup, and formula values are not currently expanded. Unknown variables remain unchanged. Substitution runs once and preserves LaTeX and values containing other bracketed text.
+
+### Zotero notes
+
+Add `[zotero_notes]` **once on its own line** where you want child notes. The two bundled examples include it at the end. There is no extra database property to configure. A paper may have several child notes; each becomes a titled toggle inside **Zotero Notes**. Empty notes are skipped, and no notes means no empty section. Standalone notes and direct PDF annotations are excluded.
+
+The note section is managed separately from the outline. Later Zotero edits update the corresponding imported note, and new child notes join the same group. The rest of your Notion page stays unchanged. Keep personal writing outside the imported note toggles. Deleting or emptying a Zotero note preserves its previously imported content. Removing the placeholder stops subsequent note sync without deleting anything in Notion.
+
+When enabling notes on an existing page, a placeholder at the end of the template appends notes; one at the beginning prepends them. For a custom middle position, add `[zotero_notes]` on its own line in the existing Notion page too. If an initially empty slot can no longer be located after you edit the page, the plugin asks you to add this marker again rather than guessing. Template edits do not relocate an already-created note group.
+
+**Supported content:** text, common emphasis, headings, links, nested lists, quotes, code, simple tables, and inline/block LaTeX. Annotations and citations already included in a note keep their text and available source links. Preview uses links for embedded images and does not upload files. Highlight colors, layout details, and every Zotero editor feature are not guaranteed to carry over.
+
+Embedded PNG, JPEG, GIF, and WebP images are uploaded to Notion (up to 20 MiB each); they must be downloaded in Zotero first. Public image URLs are retained. Merged table cells and images/code/lists inside table cells are rejected with an actionable message rather than silently losing content. Move those blocks outside the table or simplify it before retrying.
+
+Before replacing a changed note, the plugin compares it with its last imported version. If you edited it in Notion, the update pauses. Review the page, then use **Advanced → Check incomplete → Keep current notes** to accept the current Notion content as the baseline. A subsequent Zotero edit can replace that accepted version. Missing or renamed source links/groups must be restored first. Interrupted writes also require review to avoid duplicate notes. Avoid editing the same imported note in both apps during a sync; Notion provides no atomic conditional write for image-containing note ranges.
+
+Upgrades add the placeholder only to untouched built-in outlines. Your customized outlines, names, and default selection are preserved. Add the placeholder to a custom template to opt in; removing it is remembered across restarts.
 
 ### Template rules
 
@@ -75,7 +92,7 @@ Without rules, every new page uses the default template. Choose **Default templa
 - Initial setup queues existing items. Subsequent Zotero additions and changes trigger sync while Zotero is running.
 - Changing the database or property mapping rechecks the library. Editing a template does not rewrite existing page bodies.
 - A Zotero key is the primary link. Candidate existing pages are checked using DOI, arXiv ID, source URL, and title. A title alone is not enough to merge pages automatically.
-- Page outlines are inserted once into new pages, or eligible empty pages marked `Not started`. Existing notes and reading status are preserved.
+- Page outlines are inserted once into new pages, or eligible empty pages marked `Not started`. Personal page content and reading status are preserved; opted-in child notes update separately.
 - Project is derived from the collection name only when an item is in exactly one collection. A manually changed Project value is preserved.
 - Items removed from Zotero do not delete Notion pages. Inaccessible or trashed linked Notion pages are not automatically recreated.
 
@@ -85,7 +102,8 @@ Open **Advanced → Status and recovery**:
 
 - **Retry failed** retries queued failures.
 - **Recheck library** checks the full library again.
-- **Check incomplete** inspects an interrupted database setup.
+- **Check incomplete** inspects interrupted setup, unconfirmed page/note writes, and note conflicts.
+- **Keep current notes** accepts reviewed Notion notes as the baseline without overwriting them.
 - **Use Notion URL** associates an already created setup page or database so **New** can continue.
 - **Allow retry** is for cases where you have confirmed that an uncertain create request did not succeed.
 

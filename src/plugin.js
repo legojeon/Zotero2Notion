@@ -12,7 +12,8 @@ import {
   selectTemplate,
   decodePage,
 } from "./model.js";
-import { extractItem, inScope, allCollections } from "./zotero.js";
+import { extractItem, extractNotes, renderZoteroNote, inScope, allCollections } from "./zotero.js";
+import { notesPlacement, wrapNote, wrapNotes } from "./notes.js";
 const app = {
   running: false,
   stopped: false,
@@ -75,6 +76,8 @@ const app = {
       api: this.api,
       store: this.store,
       readTemplate: (t) => this.store.readTemplate(t),
+      readNotes: extractNotes,
+      renderNote: (note) => renderZoteroNote(note, this.api),
       log: (m) => this.log(m),
     });
     this.pane = await Zotero.PreferencePanes.register({
@@ -199,7 +202,12 @@ const app = {
               Number(String(id).split("-")[type === "collection-item" ? 1 : 0]),
             );
       const items = await Zotero.Items.getAsync(itemIDs);
-      itemIDs = items.filter(Boolean).map((i) => i.parentItemID || i.id);
+      itemIDs = [];
+      for (let item of items.filter(Boolean)) {
+        // An embedded image belongs to a note, which belongs to the paper.
+        while (item.parentID) item = await Zotero.Items.getAsync(item.parentID);
+        itemIDs.push(item.id);
+      }
       await this.enqueue(itemIDs);
     } catch (e) {
       this.log(e.message, true);
@@ -614,31 +622,51 @@ const app = {
     return this.store.readTemplate(t);
   },
   async preview(markdown) {
+    const placement = notesPlacement(markdown);
+    const render = (values, notes = "") => placement
+      ? renderTemplate(placement.before, values) + notes + "\n" + renderTemplate(placement.after, values)
+      : renderTemplate(markdown, values);
     const item = Zotero.getActiveZoteroPane()
       ?.getSelectedItems()
       .find((i) => i.isRegularItem());
-    if (!item)
-      return renderTemplate(markdown, {
+    if (!item) {
+      return render({
         "Journal Name": "Paper title",
         Authors: "First Author; Second Author",
         Year: 2026,
         "Paper URL": "https://example.org/paper",
-      });
-    return renderTemplate(
-      markdown,
-      (await extractItem(item, this.store.config.citationStyle)).values,
-    );
+      }, "<details>\n<summary>Zotero Notes</summary>\n\t<details>\n\t<summary>Example note</summary>\n\t\tNotes attached to this paper appear here.\n\t</details>\n</details>");
+    }
+    const values = (await extractItem(item, this.store.config.citationStyle)).values;
+    if (placement) {
+      const notes = await extractNotes(item);
+      const content = [];
+      for (const note of notes) content.push(wrapNote(note, (await renderZoteroNote(note, this.api, true)).markdown));
+      return render(values, content.length ? wrapNotes({ values }, content) : "");
+    }
+    return render(values);
   },
   async unresolved() {
     return Object.entries(this.store.state.records)
-      .filter(([, r]) => r.creating && !r.pageID)
+      .filter(([, r]) => (r.creating && !r.pageID) || r.notes?.pending || r.notes?.conflict)
       .map(([key]) => key);
+  },
+  isNotesRecovery(key) {
+    const notes = this.store.state.records[key]?.notes;
+    return !!(notes?.pending || notes?.conflict);
   },
   async resolveUncertain(key) {
     return this.exclusive(async () => {
       const prefix = this.store.config.dataSourceID + ":";
       if (!key.startsWith(prefix))
         throw new Error("Select the database for this record first.");
+      if (this.isNotesRecovery(key)) {
+        const [library, itemKey] = key.slice(prefix.length).split(":");
+        const item = Zotero.Items.getByLibraryAndKey(Number(library), itemKey);
+        if (!item) throw new Error("The Zotero item is no longer available.");
+        await this.engine.notes.acceptCurrent(await extractItem(item, this.store.config.citationStyle), this.store.state.records[key]);
+        return;
+      }
       const rows = await this.api.rows(this.store.config.dataSourceID);
       const sourceKey = key.slice(prefix.length);
       const page = rows.find(

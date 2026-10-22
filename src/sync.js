@@ -7,9 +7,11 @@ import {
   selectTemplate,
   renderTemplate,
 } from "./model.js";
+import { NotesSync, notesPlacement } from "./notes.js";
 export class SyncEngine {
-  constructor({ api, store, readTemplate, log = () => {} }) {
+  constructor({ api, store, readTemplate, readNotes = async () => [], renderNote, log = () => {} }) {
     Object.assign(this, { api, store, readTemplate, log });
+    this.notes = new NotesSync({ api, store, readNotes, renderNote });
   }
   async run(item, config, context) {
     const id = config.dataSourceID;
@@ -26,6 +28,7 @@ export class SyncEngine {
     const template = selectTemplate(config, item);
     const md = await this.readTemplate(template);
     if (!md.trim()) throw new Error("The selected template is empty.");
+    const placement = notesPlacement(md);
     let page;
     if (record.pageID) {
       page = await this.api.page(record.pageID);
@@ -118,6 +121,7 @@ export class SyncEngine {
         record.templateID = template.id;
       }
     }
+    await this.notes.sync(item, record, placement);
     record.syncedAt = new Date().toISOString();
     record.url = page.url;
     await this.store.saveState();
