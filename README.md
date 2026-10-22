@@ -17,7 +17,6 @@
 Add a paper to Zotero and get a Notion database entry with its metadata and a customizable space to study and organize what you learn. Later metadata updates preserve the notes you write in Notion.
 
 - **Automatic sync:** existing and newly added items in **My Library**.
-- **Zotero notes:** place `[zotero_notes]` in your outline to include child notes and embedded images.
 - **Your own templates:** edit Markdown in Zotero settings, with automatic saving.
 - **Flexible layouts:** choose a default template or apply different ones by collection or tag.
 - **Direct connection:** use your own Notion personal access token (PAT). No hosted authentication service or separate sync app.
