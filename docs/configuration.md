@@ -6,7 +6,7 @@
 
 **New** creates a private top-level `Zotero2Notion` page and an inline `JournalDB` with 27 properties. `Status` starts with `Not started`, `Reading`, and `Completed`. Project, Tags, and Collections have no preset personal options.
 
-Repeated **New** uses the completed database for the same connection. To use another database, select it with **Refresh → Use**. To start with example pages and views, [duplicate the public template](https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368).
+Repeated **New** uses the completed database for the same connection. To use another database, select it with **Refresh → Use**. To start with example pages and views, [duplicate the public template](https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368).
 
 **Property mapping** connects Zotero fields to your Notion property names. `Journal Name` is the paper title, despite the default column name. `Journal Name` and `Zotero Key` are required; other mappings may be cleared to omit them. The plugin checks types before writing and does not automatically delete or change existing property types.
 

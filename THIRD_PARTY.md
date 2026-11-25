@@ -14,7 +14,7 @@ The following images are excerpts from the cited papers, included with attributi
 
 | Asset | Source |
 |---|---|
-| `examples/assets/transformer-architecture.png` | Vaswani et al., *Attention Is All You Need*, Figure 1, [NeurIPS 2017](https://papers.neurips.cc/paper/7181-attention-isall-you-need.pdf) |
+| `examples/assets/transformer-architecture.png`, `site/examples/transformer-architecture.png` (preview) | Vaswani et al., *Attention Is All You Need*, Figure 1, [NeurIPS 2017](https://papers.neurips.cc/paper/7181-attention-isall-you-need.pdf) |
 | `examples/assets/resnet-architecture.png` | He et al., *Deep Residual Learning for Image Recognition*, Figure 3, [arXiv:1512.03385v1](https://arxiv.org/pdf/1512.03385v1) |
 | `examples/assets/resnet-residual-block.png` | He et al., *Deep Residual Learning for Image Recognition*, Figure 2, [arXiv:1512.03385v1](https://arxiv.org/pdf/1512.03385v1) |
 

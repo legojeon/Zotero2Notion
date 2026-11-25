@@ -21,6 +21,7 @@
       </a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#install">Install</a>
+        <a href="#examples">Examples</a>
         <a href="./tips/">Tips</a>
         <a href="#help">FAQ</a>
         <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
@@ -67,6 +68,58 @@
       </figure>
     </section>
 
+    <section class="examples-section" id="examples" aria-labelledby="examples-title">
+      <div class="wrap">
+        <div class="examples-heading">
+          <div>
+            <h2 id="examples-title">Example reading notes</h2>
+            <p>Two papers, two ways to take notes. The plugin adds a template outline for each new paper. These examples show what you might write as you read.</p>
+          </div>
+          <a class="button secondary" href="https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Open the example database in Notion <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="example-grid">
+          <article class="example-card">
+            <header>
+              <p class="example-template">Section summary</p>
+              <h3>Attention Is All You Need</h3>
+              <p class="example-byline">Vaswani et al. · NeurIPS 2017</p>
+            </header>
+            <p class="example-description">Follow the paper section by section. Here’s how the note pairs the architecture diagram with a short explanation.</p>
+            <figure class="example-excerpt architecture-excerpt">
+              <img src="../examples/transformer-architecture.png" width="315" height="450" loading="lazy" decoding="async" alt="Transformer architecture showing the six-layer encoder and decoder stacks">
+              <figcaption>
+                <strong>§3. Model architecture</strong>
+                <p>The encoder and decoder each have six layers. Positional encodings supply word order, and masking keeps the decoder from seeing future tokens.</p>
+                <a class="example-source" href="https://papers.neurips.cc/paper/7181-attention-isall-you-need.pdf#page=3">Vaswani et al., Figure 1</a>
+              </figcaption>
+            </figure>
+            <a class="example-link" href="https://sleepy-hamster-e60.notion.site/Attention-Is-All-You-Need-400cf80747f2817a8d71f4a61e979c26">Read the section summary in Notion <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="example-card">
+            <header>
+              <p class="example-template">Paper review</p>
+              <h3>Deep Residual Learning for Image Recognition</h3>
+              <p class="example-byline">He et al. · CVPR 2016</p>
+            </header>
+            <p class="example-description">Trace a claim from the problem to the evidence and its limits. This review compares models with the same depth.</p>
+            <div class="example-excerpt evidence-excerpt">
+              <table>
+                <caption>Evidence · ImageNet top-1 error</caption>
+                <thead><tr><th scope="col">Depth</th><th scope="col">Plain</th><th scope="col">ResNet</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">18 layers</th><td>27.94%</td><td>27.88%</td></tr>
+                  <tr><th scope="row">34 layers</th><td>28.54%</td><td>25.03%</td></tr>
+                </tbody>
+              </table>
+              <a class="example-source" href="https://arxiv.org/pdf/1512.03385v1#page=5">He et al., Table 2 · 10-crop validation</a>
+            </div>
+            <a class="example-link" href="https://sleepy-hamster-e60.notion.site/Deep-Residual-Learning-for-Image-Recognition-400cf80747f28182ae9fead8e4e00087">Read the paper review in Notion <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <p class="example-duplicate">Duplicate the example database in Notion to keep both reading notes in your own workspace.</p>
+      </div>
+    </section>
+
     <section class="guide-section" id="install" aria-labelledby="guide-title">
       <div class="wrap guide-layout">
         <div class="section-intro">
@@ -91,7 +144,7 @@
             <div class="step-body">
               <h3>Choose a database</h3>
               <p>To start with an empty database, click <strong>New</strong>. The plugin creates <strong>JournalDB</strong> under a private <strong>Zotero2Notion</strong> page in your workspace.</p>
-              <p>To use an existing database or a copy of the <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">example Notion template</a>, click <strong>Refresh</strong>, select the database, and click <strong>Use</strong>. Open <strong>Check properties</strong> to see which properties it needs.</p>
+              <p>To use an existing database or a copy of the <a href="https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">example Notion template</a>, click <strong>Refresh</strong>, select the database, and click <strong>Use</strong>. Open <strong>Check properties</strong> to see which properties it needs.</p>
               <div class="sync-note"><strong>Your first sync</strong><p>Once the properties are ready, sync starts automatically, including papers already in <b>My Library</b>. Keep Zotero open to sync new papers and edits.</p></div>
             </div>
           </li>

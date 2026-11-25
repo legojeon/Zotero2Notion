@@ -20,7 +20,8 @@
         <img src="./icon.png" alt="" width="38" height="38">Zotero2Notion
       </a>
       <nav class="main-nav" aria-label="주 메뉴">
-        <a href="#install">설치 가이드</a>
+        <a href="#install">설치</a>
+        <a href="#examples">예제</a>
         <a href="./tips/">활용 팁</a>
         <a href="#help">자주 묻는 질문</a>
         <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
@@ -67,6 +68,58 @@
       </figure>
     </section>
 
+    <section class="examples-section" id="examples" aria-labelledby="examples-title">
+      <div class="wrap">
+        <div class="examples-heading">
+          <div>
+            <h2 id="examples-title">논문 노트 예제</h2>
+            <p>논문 두 편을 서로 다른 템플릿으로 정리했습니다. 플러그인이 새 논문에 노트의 틀을 잡아 주면, 읽으면서 아래처럼 채워 보세요.</p>
+          </div>
+          <a class="button secondary" href="https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion에서 예제 DB 열기 <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="example-grid">
+          <article class="example-card">
+            <header>
+              <p class="example-template">섹션별 요약</p>
+              <h3 lang="en">Attention Is All You Need</h3>
+              <p class="example-byline" lang="en">Vaswani et al. · NeurIPS 2017</p>
+            </header>
+            <p class="example-description">논문 목차에 맞춰 각 절의 핵심을 정리했습니다. 3절에서는 구조도 옆에 모델이 어떻게 작동하는지 짧게 적었습니다.</p>
+            <figure class="example-excerpt architecture-excerpt">
+              <img src="./examples/transformer-architecture.png" width="315" height="450" loading="lazy" decoding="async" alt="인코더와 디코더의 여섯 층을 보여 주는 Transformer 구조도">
+              <figcaption>
+                <strong>§3. 모델 구조</strong>
+                <p>인코더와 디코더는 각각 여섯 층으로 이루어져 있다. 위치 인코딩으로 단어 순서를 알려 주고, 디코더에서는 다음 단어를 미리 보지 못하도록 가린다.</p>
+                <a class="example-source" href="https://papers.neurips.cc/paper/7181-attention-isall-you-need.pdf#page=3">Vaswani et al., 그림 1</a>
+              </figcaption>
+            </figure>
+            <a class="example-link" href="https://sleepy-hamster-e60.notion.site/Attention-Is-All-You-Need-400cf80747f2817a8d71f4a61e979c26">Notion에서 섹션별 요약 읽기 <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="example-card">
+            <header>
+              <p class="example-template">논문 리뷰</p>
+              <h3 lang="en">Deep Residual Learning for Image Recognition</h3>
+              <p class="example-byline" lang="en">He et al. · CVPR 2016</p>
+            </header>
+            <p class="example-description">저자가 풀려는 문제부터 실험 결과와 한계까지 살펴봅니다. 이 노트에서는 같은 깊이의 모델끼리 비교했습니다.</p>
+            <div class="example-excerpt evidence-excerpt">
+              <table>
+                <caption>실험 근거 · ImageNet top-1 오류율</caption>
+                <thead><tr><th scope="col">층 수</th><th scope="col">Plain</th><th scope="col">ResNet</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">18층</th><td>27.94%</td><td>27.88%</td></tr>
+                  <tr><th scope="row">34층</th><td>28.54%</td><td>25.03%</td></tr>
+                </tbody>
+              </table>
+              <a class="example-source" href="https://arxiv.org/pdf/1512.03385v1#page=5">He et al., 표 2 · 검증 세트, 10-crop 평가</a>
+            </div>
+            <a class="example-link" href="https://sleepy-hamster-e60.notion.site/Deep-Residual-Learning-for-Image-Recognition-400cf80747f28182ae9fead8e4e00087">Notion에서 논문 리뷰 읽기 <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <p class="example-duplicate">두 노트의 전문은 영어로 작성했습니다. 예제 DB를 내 워크스페이스에 복제하면 두 노트를 함께 가져올 수 있습니다.</p>
+      </div>
+    </section>
+
     <section class="guide-section" id="install" aria-labelledby="guide-title">
       <div class="wrap guide-layout">
         <div class="section-intro">
@@ -91,7 +144,7 @@
             <div class="step-body">
               <h3>데이터베이스 선택하기</h3>
               <p>새 데이터베이스를 만들려면 <strong>New</strong>를 누르세요. Notion에 비공개 <strong>Zotero2Notion</strong> 페이지가 생기고, 그 안에 <strong>JournalDB</strong>가 만들어집니다.</p>
-              <p>기존 데이터베이스나 <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">예제 템플릿</a>의 복사본을 쓰려면 <strong>Refresh</strong>를 누르세요. 목록에서 데이터베이스를 고른 뒤 <strong>Use</strong>로 연결하세요. <strong>Check properties</strong>를 누르면 필요한 속성이 갖춰졌는지 확인할 수 있습니다.</p>
+              <p>기존 데이터베이스나 <a href="https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">예제 템플릿</a>의 복사본을 쓰려면 <strong>Refresh</strong>를 누르세요. 목록에서 데이터베이스를 고른 뒤 <strong>Use</strong>로 연결하세요. <strong>Check properties</strong>를 누르면 필요한 속성이 갖춰졌는지 확인할 수 있습니다.</p>
               <div class="sync-note"><strong>첫 동기화</strong><p>필요한 속성이 갖춰지면 <b>My Library</b>에 이미 저장해 둔 논문도 Notion으로 가져옵니다. 그 뒤로는 Zotero를 열어 두면 새로 추가한 논문과 수정한 내용이 자동으로 반영됩니다.</p></div>
             </div>
           </li>

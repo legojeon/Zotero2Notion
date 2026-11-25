@@ -8,11 +8,11 @@
   <a href="https://legojeon.github.io/Zotero2Notion/en/">Visit the official website</a>
 </h2>
 <p align="center">
-  플러그인 다운로드 · 설치 안내 · 템플릿 예제<br>
-  Download the plugin, follow the installation guide, and explore template examples.
+  플러그인 다운로드 · 설치 안내 · <a href="https://legojeon.github.io/Zotero2Notion/#examples">논문 노트 예제 보기</a><br>
+  Download the plugin, follow the installation guide, and <a href="https://legojeon.github.io/Zotero2Notion/en/#examples">explore the sample reading notes</a>.
 </p>
 <p align="center">
-  <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion template</a> ·
+  <a href="https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion template</a> ·
   <a href="docs/configuration.md">User guide</a>
 </p>
 <p align="center">
@@ -49,7 +49,7 @@ The token uses your permissions in that workspace. See [Notion’s PAT guide](ht
 | Start with | What to do |
 |---|---|
 | **A blank database** | Click **New**. The plugin creates a private top-level `Zotero2Notion` page with a `JournalDB` database and selects it. |
-| **The example template** | [Duplicate the public template](https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368) into your workspace. Then click **Refresh**, select the copied database, and click **Use**. |
+| **The example template** | [Duplicate the public template](https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368) into your workspace. Then click **Refresh**, select the copied database, and click **Use**. |
 | **Your existing database** | Click **Refresh**, choose the database, and click **Use**. Review **Check properties** and add missing properties when prompted. |
 
 **Sync starts automatically when the database properties are ready, including all existing regular items in My Library.** Keep Zotero open for subsequent additions and edits to sync. If another Zotero-to-Notion automation is running, stop it before switching to this plugin.
@@ -63,7 +63,7 @@ Two English templates are included as **examples to get you started**:
 | **Paper review** | Problem → Prior work → Proposal → Evidence → Limitations → Questions → Takeaways | [Deep Residual Learning for Image Recognition](examples/resnet-paper-review.md) |
 | **Section summary** | Abstract → Introduction → Related work → Method → Experiments → Results → Discussion → Conclusion | [Attention Is All You Need](examples/attention-is-all-you-need.md) |
 
-The [public Notion template](https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368) contains both completed examples with architecture figures. **New** creates an empty database with the required properties; duplicating the public template also brings its views and example pages.
+The [public Notion template](https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368) contains both completed examples with architecture figures. **New** creates an empty database with the required properties; duplicating the public template also brings its views and example pages.
 
 Use any structure that helps you learn: rename headings, add or remove sections, or start with a blank template. In **Templates**, edit, duplicate, or create your own outline. Changes save automatically. Use **Preview** to inspect substituted Markdown or **Open folder** to edit the `.md` files in your own editor.
 
