@@ -3,8 +3,15 @@
 </p>
 <h1 align="center">Zotero2Notion</h1>
 <p align="center">Collect papers in Zotero. Organize your learning in Notion.</p>
+<h2 align="center">
+  <a href="https://legojeon.github.io/Zotero2Notion/">공식 홈페이지 바로가기</a> ·
+  <a href="https://legojeon.github.io/Zotero2Notion/en/">Visit the official website</a>
+</h2>
 <p align="center">
-  Download, installation &amp; tips (<a href="https://legojeon.github.io/Zotero2Notion/en/">English</a> · <a href="https://legojeon.github.io/Zotero2Notion/">한국어</a>) ·
+  플러그인 다운로드 · 설치 안내 · 템플릿 예제<br>
+  Download the plugin, follow the installation guide, and explore template examples.
+</p>
+<p align="center">
   <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion template</a> ·
   <a href="docs/configuration.md">User guide</a>
 </p>
