@@ -3,15 +3,11 @@
 </p>
 <h1 align="center">Zotero2Notion</h1>
 <p align="center">Collect papers in Zotero. Organize your learning in Notion.</p>
-<h2 align="center">
-  <a href="https://legojeon.github.io/Zotero2Notion/">공식 홈페이지 바로가기</a> ·
-  <a href="https://legojeon.github.io/Zotero2Notion/en/">Visit the official website</a>
-</h2>
 <p align="center">
-  플러그인 다운로드 · 설치 안내 · <a href="https://legojeon.github.io/Zotero2Notion/#examples">논문 노트 예제 보기</a><br>
-  Download the plugin, follow the installation guide, and <a href="https://legojeon.github.io/Zotero2Notion/en/#examples">explore the sample reading notes</a>.
+  <a href="https://legojeon.github.io/Zotero2Notion/">Official website</a>
 </p>
 <p align="center">
+  <a href="https://github.com/legojeon/Zotero2Notion/releases/latest">Download</a> ·
   <a href="https://sleepy-hamster-e60.notion.site/Zotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion template</a> ·
   <a href="docs/configuration.md">User guide</a>
 </p>
@@ -83,8 +79,6 @@ Use any structure that helps you learn: rename headings, add or remove sections,
 ```
 
 Variables also accept property names such as `[Abstract]`, `[Full Citation]`, and `[Project]`. Choose **Default template** in **Templates**, or add collection/tag rules under **Template rules**. The first matching rule wins.
-
-Look up variables and see how rules work in the [English template reference](https://legojeon.github.io/Zotero2Notion/en/tips/template-reference/) or the [한국어 가이드](https://legojeon.github.io/Zotero2Notion/tips/template-reference/).
 
 The outline populates the page once. Editing it applies to future page creation. Both included examples also contain `[zotero_notes]`: put it once on its own line to include the paper’s child notes there, or remove it to stop importing notes. Multiple notes appear as separate toggles inside **Zotero Notes**; papers without notes get no empty section. Imported notes stay in sync, while your other page content is preserved. Customized templates are kept unchanged on upgrade—add the placeholder yourself to opt in. **The plugin creates outlines, not AI-generated paper summaries.**
 
