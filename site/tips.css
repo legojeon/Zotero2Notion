@@ -1,0 +1,103 @@
+.tips-heading {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-block: clamp(3rem, 6vw, 5.5rem);
+}
+.tips-heading h1 { margin: 0 0 1rem; }
+.tips-heading .lead { max-width: 31rem; }
+.save-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 1.6rem 1.4rem;
+  border: 1px solid #dfd4d0;
+  background: #f5eeeb;
+  border-radius: .5rem;
+}
+.save-path li { position: relative; padding: 1.1rem .5rem 0 0; }
+.save-path li::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: #bba8a4;
+}
+.save-path li:last-child::before { display: none; }
+.save-path li::after {
+  content: "";
+  position: absolute;
+  top: -.22rem;
+  left: 0;
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: var(--red);
+}
+.save-path strong, .save-path span { display: block; }
+.save-path span { color: var(--muted); font-size: .875rem; margin-top: .2rem; }
+.tips-sheet { background: white; border-top: 1px solid var(--rule); }
+.tips-layout {
+  display: grid;
+  grid-template-columns: minmax(12rem, .55fr) minmax(0, 2fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding-block: clamp(3rem, 5vw, 5rem);
+}
+.topic-index {
+  display: grid;
+  align-content: start;
+  gap: .8rem;
+  position: sticky;
+  top: 6.5rem;
+  padding: .2rem 0 .2rem 1rem;
+  border-left: 2px solid #d8babd;
+}
+.topic-index strong { color: var(--muted); font-size: .875rem; }
+.topic-index a { width: fit-content; font-size: 1rem; text-decoration: underline; text-decoration-color: #c7c0bd; }
+.tutorials { max-width: 48rem; }
+.tutorials section { scroll-margin-top: 1.5rem; }
+.tutorials section + section { border-top: 1px solid var(--rule); margin-top: 3.3rem; padding-top: 3.3rem; }
+.tutorials h2 { font-size: clamp(1.8rem, 3vw, 2.65rem); }
+.tutorials h3 { font-size: 1.2rem; letter-spacing: -.028em; line-height: 1.5; }
+.tutorials p { line-height: 1.75; color: var(--muted); }
+.tutorials p strong { color: var(--ink); font-weight: 650; }
+.tutorials a { color: var(--red); }
+.tutorials .tutorial-lead { font-size: 1.075rem; }
+.directions { padding-left: 1.7rem; margin: 1.8rem 0 0; list-style-type: decimal; }
+.directions li { padding-left: .4rem; }
+.directions li + li { margin-top: 1.6rem; }
+.directions li::marker { color: var(--red); font-family: var(--mono); font-weight: 650; }
+.directions li > p, .tip-note p { margin-top: .45rem; }
+.tip-note { padding: 1.1rem 1.25rem; margin-top: 1.75rem; border-left: 3px solid var(--red); background: var(--paper); }
+.tip-note h3 { font-size: 1.05rem; }
+.md-example { margin: 1rem 0; border: 1px solid var(--rule); border-radius: .45rem; }
+.md-example figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .6rem 1rem;
+  background: #f5f2ef;
+  border-bottom: 1px solid var(--rule);
+  border-radius: .45rem .45rem 0 0;
+  font-weight: 650;
+}
+.md-example pre { margin: 0; padding: 1rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.md-example code { font: .94rem/1.65 var(--mono); user-select: all; }
+.copy-example { padding: .4rem .65rem; border: 1px solid #baaeab; border-radius: .3rem; background: white; color: var(--ink); font-family: inherit; font-size: .875rem; line-height: 1.2; font-weight: 600; cursor: pointer; }
+.copy-example:hover { border-color: var(--red); color: var(--red); }
+.copy-example:focus-visible { outline: 3px solid #255d9a; outline-offset: 2px; }
+.copy-message:not(:empty) { display: block; padding: 0 1rem .75rem; font-size: .9rem; }
+.database-tip { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); scroll-margin-top: 1.5rem; }
+.database-tip p { margin-top: .45rem; }
+@media (max-width: 48rem) {
+  .tips-heading, .tips-layout { grid-template-columns: 1fr; gap: 1.75rem; }
+  .tips-heading { padding-block: 2.75rem; }
+  .save-path { max-width: 29rem; width: 100%; padding-inline: 1rem; }
+  .tips-layout { padding-block: 2.25rem; }
+  .topic-index { position: static; }
+  .directions { padding-left: 1.4rem; }
+}

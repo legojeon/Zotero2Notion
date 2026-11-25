@@ -8,6 +8,9 @@
   <title>Zotero2Notion — 다운로드 및 설치 가이드</title>
   <link rel="icon" type="image/png" href="./icon.png">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="alternate" hreflang="ko" href="./">
+  <link rel="alternate" hreflang="en" href="./en/">
+  <script src="./language.js" defer></script>
 </head>
 <body id="top">
   <a class="skip" href="#main">본문으로 바로가기</a>
@@ -16,10 +19,15 @@
       <a class="brand" href="#top" aria-label="Zotero2Notion 처음으로">
         <img src="./icon.png" alt="" width="38" height="38">Zotero2Notion
       </a>
-      <nav aria-label="주 메뉴">
+      <nav class="main-nav" aria-label="주 메뉴">
         <a href="#install">설치 가이드</a>
-        <a href="#help">도움말</a>
+        <a href="./tips/">활용 팁</a>
+        <a href="#help">자주 묻는 질문</a>
         <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
+      </nav>
+      <nav class="language-switch" aria-label="언어 선택">
+        <a lang="ko" hreflang="ko" href="./" aria-current="page">한국어</a>
+        <a lang="en" hreflang="en" href="./en/">English</a>
       </nav>
     </div>
   </header>
@@ -88,6 +96,18 @@
             </div>
           </li>
         </ol>
+      </div>
+    </section>
+    <section id="tips" class="tips-preview" aria-labelledby="tips-title">
+      <div class="wrap guide-layout">
+        <div class="section-intro">
+          <h2 id="tips-title">활용 팁</h2>
+          <p>브라우저에서 논문을 수집하고, 내 독서 방식에 맞춰 연구 노트를 구성해 보세요.</p>
+        </div>
+        <div class="tip-links">
+          <a href="./tips/#connector"><strong>Zotero Connector로 논문 저장하기</strong><span>논문 페이지에서 저장한 문헌이 Notion에 들어오기까지의 과정을 따라갑니다.</span></a>
+          <a href="./tips/#templates"><strong>나만의 노트 템플릿 만들기</strong><span>Markdown 예제를 편집하고 컬렉션이나 태그별로 다른 양식을 적용합니다.</span></a>
+        </div>
       </div>
     </section>
     <section class="wrap help-layout" id="help" aria-labelledby="help-title">

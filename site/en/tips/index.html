@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="description" content="Save a paper with Zotero Connector and build a reusable Markdown reading-note template for Notion.">
+  <title>Workflow tips — Zotero2Notion</title>
+  <link rel="alternate" hreflang="ko" href="../../tips/">
+  <link rel="alternate" hreflang="en" href="./">
+  <link rel="icon" type="image/png" href="../../icon.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../tips.css">
+  <script src="../../language.js" defer></script>
+  <script src="../../tips/copy.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../" aria-label="Zotero2Notion home"><img src="../../icon.png" alt="" width="38" height="38">Zotero2Notion</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../#install">Install</a>
+        <a href="./" aria-current="page">Tips</a>
+        <a href="../#help">FAQ</a>
+        <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
+      </nav>
+      <nav class="language-switch" aria-label="Language">
+        <a lang="ko" hreflang="ko" href="../../tips/">한국어</a>
+        <a lang="en" hreflang="en" href="./" aria-current="page">English</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="tips-heading wrap">
+      <div>
+        <h1>Workflow tips</h1>
+        <p class="lead">Save a paper from your browser, then decide what you want to see when you open its reading note in Notion.</p>
+      </div>
+      <ol class="save-path" aria-label="How a paper reaches Notion">
+        <li><strong>Browser</strong><span>Article page</span></li>
+        <li><strong>Zotero</strong><span>My Library</span></li>
+        <li><strong>Notion</strong><span>Your database</span></li>
+      </ol>
+    </header>
+    <div class="tips-sheet">
+      <div class="tips-layout wrap">
+        <nav class="topic-index" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#connector">Save with Connector</a>
+          <a href="#templates">Make a note template</a>
+          <a href="#database-template">Use the Notion database template</a>
+        </nav>
+        <div class="tutorials">
+          <section id="connector" aria-labelledby="connector-title">
+            <h2 id="connector-title">Save a paper with Zotero Connector</h2>
+            <p class="tutorial-lead">Zotero Connector reads the article in your browser and saves its details to Zotero. Zotero2Notion then syncs that record to your Notion database. Before you begin, <a href="../#install">install the plugin and connect a database</a>.</p>
+            <ol class="directions">
+              <li><h3>Install the browser extension.</h3><p>For Chrome, Firefox, or Edge, get the extension for your browser from the <a href="https://www.zotero.org/download/">Zotero download page</a>. On Safari, turn on the extension bundled with Zotero in <strong>Safari Settings → Extensions</strong>.</p></li>
+              <li><h3>Save from the article page.</h3><p>Open the Zotero desktop app. In your browser, visit the article’s abstract or publication page, then click <strong>Save to Zotero</strong> in the toolbar. Use the save popup to select <strong>My Library</strong> or one of its collections. <a href="https://www.zotero.org/support/adding_items_to_zotero">Zotero’s guide to saving from the web</a></p></li>
+              <li><h3>Find the same paper in Notion.</h3><p>Check the title and authors in Zotero. Leave Zotero open, then look for that title in your connected Notion database. An attached PDF stays in Zotero, and the bibliographic fields you mapped appear in Notion.</p></li>
+            </ol>
+            <aside class="tip-note">
+              <h3>Where did the paper stop?</h3>
+              <p><strong>Missing from Zotero?</strong> Open the desktop app and restart your browser. <a href="https://www.zotero.org/support/kb/connector_zotero_unavailable">Troubleshoot the Connector connection</a></p>
+              <p><strong>Present in Zotero but missing from Notion?</strong> Check that you saved a regular item to your personal library. Group libraries and standalone PDF attachments are excluded. In the plugin settings, confirm the selected database and review <strong>Check properties</strong>.</p>
+            </aside>
+          </section>
+          <section id="templates" aria-labelledby="templates-title">
+            <h2 id="templates-title">Make your own note template</h2>
+            <p class="tutorial-lead">If you ask the same questions each time you read a paper, put them in a template. When the plugin creates the paper’s page, it fills in its details and leaves room for your answers.</p>
+            <ol class="directions">
+              <li><h3>Create a template to edit.</h3><p>In Zotero, open <strong>Settings → Zotero2Notion → Templates</strong>. Click <strong>New</strong> beside <strong>Edit template</strong>, or select <strong>Paper review</strong> and click <strong>Duplicate</strong> to start from a copy. Enter “My reading note” in <strong>Name</strong>.</p></li>
+              <li><h3>Paste the example into the Markdown editor.</h3><p><code>[title]</code>, <code>[authors]</code>, and <code>[year]</code> pull in the paper’s title, authors, and publication year. Change the headings that begin with <code>##</code> to questions you want to answer. Your edits save automatically.</p>
+                <figure class="md-example">
+                  <figcaption>
+                    <span>Reading note example</span>
+                    <button type="button" class="copy-example" data-success="Copied" data-failure="Select the example and copy it." hidden>Copy</button>
+                  </figcaption>
+                  <pre><code># [title]
+[authors] ([year])
+
+[paper_link] · [zotero_link]
+
+## What question does the paper answer?
+
+## What can I use in my own research?
+
+[zotero_notes]</code></pre>
+                  <span class="copy-message" role="status"></span>
+                </figure>
+                <p>To include notes attached to the Zotero item, put <code>[zotero_notes]</code> once on a line of its own. Imported notes continue to sync. Write your personal notes outside their toggles.</p>
+              </li>
+              <li><h3>Preview the result and set the default.</h3><p>Click <strong>Preview</strong> to see the selected paper’s title and authors in place. If no paper is selected, the preview uses sample data. Choose “My reading note” under <strong>Default template</strong>, then save a new paper and open its Notion page. Edits to an outline preserve the content of pages you have already written.</p></li>
+            </ol>
+            <aside class="tip-note">
+              <h3>Use a different outline by collection</h3>
+              <p>Open <strong>Template rules → Add rule</strong>, choose <strong>Collection</strong>, then pick your collection and its template. The rule also covers its subcollections. To match by <strong>Tag</strong>, enter the exact tag name. If several rules match, the first one in the list wins.</p>
+              <p><a href="https://github.com/legojeon/Zotero2Notion/blob/main/docs/configuration.md#templates">Full guide to template variables and rules</a></p>
+            </aside>
+            <article id="database-template" class="database-tip" aria-labelledby="database-tip-title">
+              <h3 id="database-tip-title">Start with the Notion database template</h3>
+              <p>To bring over example pages and database views, open the <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">public Journal DB template</a> and click <strong>Duplicate</strong>. Choose the workspace where you created your token. In your copy, try adding a view grouped by <strong>Status</strong> to track your reading.</p>
+              <p>In the plugin settings, click <strong>Refresh</strong>, select the copied database, and click <strong>Use</strong>. Review <strong>Check properties</strong> to confirm the field mapping. The plugin will sync papers to this database and use your Markdown template for the body of each new paper’s page.</p>
+            </article>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="../"><img src="../../icon.png" alt="" width="30" height="30">Zotero2Notion</a>
+      <div class="footer-links">
+        <a href="https://github.com/legojeon/Zotero2Notion/issues">Report an issue</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/PRIVACY.md">Privacy</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/LICENSE">MIT License</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

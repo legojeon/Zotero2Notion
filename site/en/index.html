@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="description" content="Download Zotero2Notion for Zotero 10.0.x. Install the plugin, connect a Notion database, and turn the papers in your library into research notes.">
+  <title>Zotero2Notion — Download and installation guide</title>
+  <link rel="icon" type="image/png" href="../icon.png">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="alternate" hreflang="ko" href="../">
+  <link rel="alternate" hreflang="en" href="./">
+  <script src="../language.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top" aria-label="Zotero2Notion home">
+        <img src="../icon.png" alt="" width="38" height="38">Zotero2Notion
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#install">Install</a>
+        <a href="./tips/">Tips</a>
+        <a href="#help">FAQ</a>
+        <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
+      </nav>
+      <nav class="language-switch" aria-label="Language">
+        <a hreflang="ko" lang="ko" href="../">한국어</a>
+        <a hreflang="en" lang="en" aria-current="page" href="./">English</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="intro">
+        <p class="compat"><span aria-hidden="true"></span>Plugin for Zotero 10.0.x</p>
+        <h1 id="hero-title">Zotero papers,<br><em>Notion notes.</em></h1>
+        <p class="lead">Add a paper to Zotero to start a research note in Notion. The plugin keeps the citation details up to date and preserves the notes you write as you read.</p>
+        <div class="actions">
+          <a class="button primary" href="../download.xpi" download="Zotero2Notion.xpi">Download plugin <span class="extension">.xpi</span></a>
+          <a class="button secondary" href="#install">Installation guide</a>
+        </div>
+        <a class="release" href="https://github.com/legojeon/Zotero2Notion/releases/latest">Latest release notes</a>
+      </div>
+      <figure class="demo" aria-label="Sync example. The Zotero item for Attention Is All You Need becomes a Notion research note with the authors and publication year.">
+        <div class="board" aria-hidden="true">
+          <div class="back-card">
+            <div class="source-label"><span class="z-mark">Z</span> Zotero</div>
+            <div class="source-library">My Library</div>
+            <div class="source-line"></div>
+            <div class="source-line short"></div>
+            <div class="source-line"></div>
+          </div>
+          <div class="front-card">
+            <div class="note-origin"><span class="n-mark">N</span> Notion</div>
+            <div class="paper-title" lang="en">Attention Is<br>All You Need</div>
+            <div class="paper-fields" lang="en">
+              <span>Authors</span><b>Vaswani et al.</b>
+              <span>Year</span><b>2017</b>
+            </div>
+            <div class="paper-section">Section summary</div>
+            <div class="pencil-line"></div>
+          </div>
+          <span class="proof-corner first"></span><span class="proof-corner last"></span>
+        </div>
+      </figure>
+    </section>
+
+    <section class="guide-section" id="install" aria-labelledby="guide-title">
+      <div class="wrap guide-layout">
+        <div class="section-intro">
+          <h2 id="guide-title">Installation guide</h2>
+          <p>You’ll need Zotero 10.0.x and a Notion account that can create a personal access token.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <div class="step-body">
+              <h3>Install the plugin in Zotero</h3>
+              <p>Download the <code>.xpi</code> file above. In Zotero, open <strong>Tools → Plugins</strong>. Open the gear menu, choose <strong>Install Plugin From File…</strong>, and select the downloaded file.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <h3>Connect your Notion account</h3>
+              <p>In Zotero, open <strong>Settings → Zotero2Notion</strong> and click <strong>Get token</strong>. Choose your workspace in Notion and create a personal access token with the <strong>Notion API</strong> capability.</p>
+              <p>Back in the plugin settings, paste the token into <strong>Personal access token</strong> and click <strong>Connect</strong>.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <h3>Choose a database</h3>
+              <p>To start with an empty database, click <strong>New</strong>. The plugin creates <strong>JournalDB</strong> under a private <strong>Zotero2Notion</strong> page in your workspace.</p>
+              <p>To use an existing database or a copy of the <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">example Notion template</a>, click <strong>Refresh</strong>, select the database, and click <strong>Use</strong>. Open <strong>Check properties</strong> to see which properties it needs.</p>
+              <div class="sync-note"><strong>Your first sync</strong><p>Once the properties are ready, sync starts automatically, including papers already in <b>My Library</b>. Keep Zotero open to sync new papers and edits.</p></div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="tips-preview" id="tips" aria-labelledby="tips-title">
+      <div class="wrap guide-layout">
+        <div class="section-intro">
+          <h2 id="tips-title">Tips</h2>
+          <p>Try these guides once your Zotero library is connected to Notion.</p>
+        </div>
+        <div class="tip-links">
+          <a href="./tips/#connector"><strong>Save a paper from your browser</strong><span>Use Zotero Connector to send a paper to My Library and follow it into Notion.</span></a>
+          <a href="./tips/#templates"><strong>Create a note template</strong><span>Design a Markdown outline with paper details, reading prompts, and Zotero notes.</span></a>
+        </div>
+      </div>
+    </section>
+    <section class="wrap help-layout" id="help" aria-labelledby="help-title">
+      <div class="section-intro">
+        <h2 id="help-title">FAQ</h2>
+        <a class="guide-link" href="https://github.com/legojeon/Zotero2Notion/blob/main/docs/configuration.md">Full user guide</a>
+      </div>
+      <div class="questions">
+        <details>
+          <summary>Which Zotero data syncs to Notion?</summary>
+          <p>The plugin syncs the fields you map for items in My Library, including titles, authors, abstracts, tags, and collections. Add <code>[zotero_notes]</code> on its own line in your template to include a paper’s child notes. Group libraries, PDF files, and annotations that exist only in a PDF are outside the scope of sync.</p>
+        </details>
+        <details>
+          <summary>What happens to the notes I write in Notion?</summary>
+          <p>The plugin applies your template when it creates a page. Later updates to the paper’s details preserve your writing and reading status. The plugin updates imported Zotero notes separately, so keep your own writing outside their toggles.</p>
+        </details>
+        <details>
+          <summary>Why can’t I see my database?</summary>
+          <p>Check that the database belongs to the workspace where you created the token. In the plugin settings, click <strong>Refresh</strong>. Select the database when it appears, then click <strong>Use</strong> to connect it.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top"><img src="../icon.png" alt="" width="30" height="30">Zotero2Notion</a>
+      <div class="footer-links">
+        <a href="https://github.com/legojeon/Zotero2Notion/issues">Report an issue</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/PRIVACY.md">Privacy</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/LICENSE">MIT License</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
