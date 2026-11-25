@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="description" content="Look up the variables you can use in a Zotero2Notion note template and choose which template a collection or tag uses.">
+  <title>Template variables and rules — Zotero2Notion</title>
+  <link rel="alternate" hreflang="ko" href="../../../tips/template-reference/">
+  <link rel="alternate" hreflang="en" href="./">
+  <link rel="icon" type="image/png" href="../../../icon.png">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../tips.css">
+  <script src="../../../language.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../../" aria-label="Zotero2Notion home"><img src="../../../icon.png" alt="" width="38" height="38">Zotero2Notion</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../../#install">Install</a>
+        <a href="../" aria-current="location">Tips</a>
+        <a href="../../#help">FAQ</a>
+        <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
+      </nav>
+      <nav class="language-switch" aria-label="Language">
+        <a lang="ko" hreflang="ko" href="../../../tips/template-reference/">한국어</a>
+        <a lang="en" hreflang="en" href="./" aria-current="page">English</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="wrap reference-heading">
+      <a href="../#templates">Back to making a note template</a>
+      <h1>Template variables and rules</h1>
+      <p class="lead">Use variables to fill in a paper’s details. Use rules to choose a different outline for a collection or tag.</p>
+    </header>
+    <div class="tips-sheet">
+      <div class="tips-layout wrap">
+        <nav class="topic-index" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#variables">Template variables</a>
+          <a href="#properties">Database properties</a>
+          <a href="#rules">Template rules</a>
+        </nav>
+        <div class="tutorials reference-body">
+          <section id="variables" aria-labelledby="variables-title">
+            <h2 id="variables-title">Template variables</h2>
+            <p>In Zotero, open <strong>Settings → Zotero2Notion → Templates</strong> and enter variables in the <strong>Markdown</strong> editor with their square brackets. For example, <code>[title] ([year])</code> becomes <em>Attention Is All You Need (2017)</em>. Click <strong>Preview</strong> to try it with the selected paper or with sample data.</p>
+            <table class="reference-table" aria-labelledby="variables-title">
+              <thead><tr><th scope="col">Variable</th><th scope="col">What it adds to the note</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>[title]</code></th><td>Paper title, from the <strong>Journal Name</strong> field.</td></tr>
+                <tr><th scope="row"><code>[authors]</code></th><td>All authors, separated by semicolons.</td></tr>
+                <tr><th scope="row"><code>[authors_short]</code></th><td>First author, followed by “et al.” for papers with multiple authors. Displays “Unknown author” if there are no authors.</td></tr>
+                <tr><th scope="row"><code>[year]</code></th><td>Publication year.</td></tr>
+                <tr><th scope="row"><code>[url]</code></th><td>The paper’s URL as written in <strong>Paper URL</strong>.</td></tr>
+                <tr><th scope="row"><code>[paper_link]</code></th><td>A Markdown link labeled “Paper”. Displays “Paper URL unavailable” if the URL is missing.</td></tr>
+                <tr><th scope="row"><code>[zotero_link]</code></th><td>A Markdown link labeled “Zotero” that opens the item in your library.</td></tr>
+                <tr><th scope="row"><code>[zotero_notes]</code></th><td>Notes attached to the Zotero item. Put this marker once on its own line, outside a code block, where you want the notes to appear.</td></tr>
+              </tbody>
+            </table>
+            <p>Each nonempty child note gets its own toggle under <strong>Zotero Notes</strong>. An item without notes gets no empty section. Imported notes stay in sync, so keep your own writing outside those toggles.</p>
+          </section>
+          <section id="properties" aria-labelledby="properties-title">
+            <h2 id="properties-title">Database properties</h2>
+            <p>Put a property name in brackets to include its value when the plugin first fills in the outline. For example, <code>[Abstract]</code> inserts the abstract. You can also use a lowercase name with underscores, so <code>[Full Citation]</code> and <code>[full_citation]</code> produce the same citation.</p>
+            <table class="reference-table" aria-labelledby="properties-title">
+              <thead><tr><th scope="col">Group</th><th scope="col">Default property names</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Paper details</th><td><code>[Journal Name]</code>, <code>[Short Title]</code>, <code>[Item Type]</code>, <code>[Abstract]</code>, <code>[Authors]</code>, <code>[Editors]</code></td></tr>
+                <tr><th scope="row">Publication</th><td><code>[Publication]</code>, <code>[Year]</code>, <code>[Date]</code>, <code>[Place]</code>, <code>[Proceedings Title]</code>, <code>[Series Title]</code></td></tr>
+                <tr><th scope="row">Citations and links</th><td><code>[Full Citation]</code>, <code>[In-Text Citation]</code>, <code>[Citation Key]</code>, <code>[DOI]</code>, <code>[Paper URL]</code>, <code>[Zotero URI]</code>, <code>[Zotero Key]</code></td></tr>
+                <tr><th scope="row">Library and workflow</th><td><code>[Status]</code>, <code>[Project]</code>, <code>[Tags]</code>, <code>[Collections]</code>, <code>[Date Added]</code>, <code>[Date Modified]</code>, <code>[File Path]</code>, <code>[Extra]</code></td></tr>
+              </tbody>
+            </table>
+            <p>You can use a mapped field’s default name or the name of its Notion property. Custom properties work the same way. For a text property named <strong>Reading goal</strong>, use <code>[Reading goal]</code> or <code>[reading_goal]</code>. Check the value on the new Notion page. <strong>Preview</strong> uses Zotero or sample data.</p>
+            <p>The plugin can read title, text, number, select, status, multi-select, date, checkbox, URL, created time, and last edited time. Dates use the start value. Multi-select values are separated by semicolons.</p>
+            <p>For an unsupported property type such as relation, rollup, or formula, the variable produces an empty value. An unrecognized name stays in brackets. Values are inserted once, so brackets inside a value remain literal.</p>
+          </section>
+          <section id="rules" aria-labelledby="rules-title">
+            <h2 id="rules-title">Template rules</h2>
+            <p>Under <strong>Templates → Default template</strong>, choose the outline to use when no rule matches. <strong>Edit template</strong> selects the outline you want to edit. Changing an outline or rule preserves text already written on existing pages.</p>
+            <ol class="directions">
+              <li><h3>Add a rule</h3><p>In the Zotero2Notion settings, open <strong>Template rules → Add rule</strong>. Choose <strong>Collection</strong> or <strong>Tag</strong>, fill in the condition, and pick an outline under <strong>Template</strong>.</p></li>
+              <li><h3>Choose what to match</h3><p>A collection rule covers the selected collection and its subcollections, even if you rename the selected collection later. A tag rule matches the exact tag name, including capitalization.</p></li>
+              <li><h3>Put the most specific rule first</h3><p>The plugin reads rules from the top and uses the first active match. Use the up arrow to raise a rule’s priority. It skips incomplete or disabled rules.</p></li>
+            </ol>
+            <aside class="tip-note">
+              <h3>Example rules for seminar papers</h3>
+              <p>Set the first rule to use <strong>Paper review</strong> for the tag <code>review</code>. Set the second to use <strong>Section summary</strong> for the <code>Seminar</code> collection.</p>
+              <p>A seminar paper tagged <code>review</code> gets <strong>Paper review</strong>. An untagged paper in <code>Seminar</code> or one of its subcollections gets <strong>Section summary</strong>. A paper matching neither rule uses your default template.</p>
+            </aside>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="../../"><img src="../../../icon.png" alt="" width="30" height="30">Zotero2Notion</a>
+      <div class="footer-links">
+        <a href="https://github.com/legojeon/Zotero2Notion/issues">Report an issue</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/PRIVACY.md">Privacy</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/LICENSE">MIT License</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -93,6 +93,32 @@
 .copy-message:not(:empty) { display: block; padding: 0 1rem .75rem; font-size: .9rem; }
 .database-tip { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); scroll-margin-top: 1.5rem; }
 .database-tip p { margin-top: .45rem; }
+.reference-heading { padding-block: clamp(2rem, 4.5vw, 4rem); }
+.reference-heading a { color: var(--red); }
+.reference-heading h1 { margin: .85rem 0 .75rem; font-size: clamp(2.4rem, 4.7vw, 4rem); }
+.reference-heading .lead { max-width: 46rem; }
+.reference-body { min-width: 0; }
+.reference-body :is(p, aside) + p { margin-top: .8rem; }
+.reference-body :is(table, p, div, figure) + h3 { margin-top: 1.6rem; }
+.reference-body h3 + p { margin-top: .45rem; }
+.reference-body li { line-height: 1.65; }
+.reference-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-block: 1.15rem;
+  text-align: start;
+}
+.reference-table th, .reference-table td {
+  padding: .7rem .8rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: start;
+  vertical-align: top;
+  line-height: 1.6;
+}
+.reference-table thead th { color: var(--ink); background: var(--paper); border-top: 1px solid var(--rule); }
+.reference-table th:first-child, .reference-table td:first-child { width: 32%; }
+.reference-table code { color: #832137; overflow-wrap: anywhere; }
 @media (max-width: 48rem) {
   .tips-heading, .tips-layout { grid-template-columns: 1fr; gap: 1.75rem; }
   .tips-heading { padding-block: 2.75rem; }
@@ -100,4 +126,8 @@
   .tips-layout { padding-block: 2.25rem; }
   .topic-index { position: static; }
   .directions { padding-left: 1.4rem; }
+}
+@media (max-width: 30rem) {
+  .reference-table th, .reference-table td { padding: .6rem .4rem; }
+  .reference-table th:first-child, .reference-table td:first-child { width: 42%; }
 }

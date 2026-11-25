@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f7">
+  <meta name="description" content="Zotero2Notion 노트 템플릿에 넣을 수 있는 변수와 데이터베이스 속성, 컬렉션·태그별 템플릿 선택 규칙을 확인하세요.">
+  <title>템플릿 변수와 규칙 — Zotero2Notion</title>
+  <link rel="alternate" hreflang="ko" href="./">
+  <link rel="alternate" hreflang="en" href="../../en/tips/template-reference/">
+  <link rel="icon" type="image/png" href="../../icon.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../tips.css">
+  <script src="../../language.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">본문으로 바로가기</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../../" aria-label="Zotero2Notion 홈"><img src="../../icon.png" alt="" width="38" height="38">Zotero2Notion</a>
+      <nav class="main-nav" aria-label="주 메뉴">
+        <a href="../../#install">설치 가이드</a>
+        <a href="../" aria-current="location">활용 팁</a>
+        <a href="../../#help">자주 묻는 질문</a>
+        <a class="github-link" href="https://github.com/legojeon/Zotero2Notion">GitHub</a>
+      </nav>
+      <nav class="language-switch" aria-label="언어 선택">
+        <a lang="ko" hreflang="ko" href="./" aria-current="page">한국어</a>
+        <a lang="en" hreflang="en" href="../../en/tips/template-reference/">English</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <header class="wrap reference-heading">
+      <a href="../#templates">노트 템플릿 만들기로 돌아가기</a>
+      <h1>템플릿 변수와 규칙</h1>
+      <p class="lead">논문 노트에 자동으로 채울 항목을 고르고, 컬렉션이나 태그에 따라 어떤 템플릿을 쓸지 정하세요.</p>
+    </header>
+    <div class="tips-sheet">
+      <div class="tips-layout wrap">
+        <nav class="topic-index" aria-label="목차">
+          <strong>목차</strong>
+          <a href="#variables">기본 변수</a>
+          <a href="#properties">데이터베이스 속성</a>
+          <a href="#rules">템플릿 선택 규칙</a>
+        </nav>
+        <div class="tutorials reference-body">
+          <section id="variables" aria-labelledby="variables-title">
+            <h2 id="variables-title">기본 변수</h2>
+            <p>Zotero의 <strong>Settings → Zotero2Notion → Templates</strong>에서 Markdown 본문에 변수 이름을 대괄호와 함께 적으세요. 예를 들어 <code>[title] ([year])</code>는 <samp>Attention Is All You Need (2017)</samp>로 표시됩니다. Zotero에서 논문을 선택하고 <strong>Preview</strong>를 누르면 그 논문으로 미리 볼 수 있습니다.</p>
+            <table class="reference-table" aria-label="기본 변수와 용도">
+              <thead><tr><th scope="col">변수</th><th scope="col">노트에 들어가는 내용</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>[title]</code></th><td>논문 제목. 기본 속성 <code>[Journal Name]</code>과 같은 값입니다.</td></tr>
+                <tr><th scope="row"><code>[authors]</code></th><td>전체 저자 이름. 여러 명이면 세미콜론으로 구분합니다.</td></tr>
+                <tr><th scope="row"><code>[authors_short]</code></th><td>첫 번째 저자 이름. 공저자가 있으면 뒤에 <code>et al.</code>이 붙고, 저자 정보가 없으면 <code>Unknown author</code>로 표시됩니다.</td></tr>
+                <tr><th scope="row"><code>[year]</code></th><td>출판 연도</td></tr>
+                <tr><th scope="row"><code>[url]</code></th><td>논문 주소를 URL 그대로 표시합니다.</td></tr>
+                <tr><th scope="row"><code>[paper_link]</code></th><td>논문 주소로 연결되는 <strong>Paper</strong> 링크. 주소가 없으면 <code>Paper URL unavailable</code>로 표시됩니다.</td></tr>
+                <tr><th scope="row"><code>[zotero_link]</code></th><td>Zotero 라이브러리의 해당 문헌으로 연결되는 <strong>Zotero</strong> 링크</td></tr>
+                <tr><th scope="row"><code>[zotero_notes]</code></th><td>해당 문헌에 작성한 Zotero 노트를 넣을 자리</td></tr>
+              </tbody>
+            </table>
+            <p><code>[zotero_notes]</code>는 코드 블록 밖에서 한 줄에 단독으로, 템플릿 전체에 한 번만 적으세요. 노트가 여러 개면 <strong>Zotero Notes</strong> 안에서 하나씩 펼쳐 볼 수 있습니다. 가져올 노트가 없으면 이 섹션은 생기지 않습니다. 가져온 노트는 계속 동기화되므로 Notion에서 직접 쓰는 메모는 토글 밖에 적으세요.</p>
+          </section>
+          <section id="properties" aria-labelledby="properties-title">
+            <h2 id="properties-title">데이터베이스 속성</h2>
+            <p>초록을 넣으려면 <code>[Abstract]</code>, 참고문헌 표기를 넣으려면 <code>[Full Citation]</code>처럼 속성 이름을 그대로 적으세요. 영문을 소문자로 쓰고 공백이나 하이픈을 밑줄로 바꿔도 됩니다. <code>[full_citation]</code>과 <code>[in_text_citation]</code>이 그런 예입니다.</p>
+            <table class="reference-table" aria-label="기본 데이터베이스 속성 27개">
+              <thead><tr><th scope="col">분류</th><th scope="col">템플릿에 쓸 수 있는 기본 속성</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">논문 정보</th><td><code>[Journal Name]</code>, <code>[Short Title]</code>, <code>[Authors]</code>, <code>[Editors]</code>, <code>[Abstract]</code>, <code>[Item Type]</code></td></tr>
+                <tr><th scope="row">출판 정보</th><td><code>[Publication]</code>, <code>[Proceedings Title]</code>, <code>[Series Title]</code>, <code>[Place]</code>, <code>[Year]</code>, <code>[Date]</code></td></tr>
+                <tr><th scope="row">인용 정보</th><td><code>[DOI]</code>, <code>[Citation Key]</code>, <code>[Full Citation]</code>, <code>[In-Text Citation]</code></td></tr>
+                <tr><th scope="row">링크와 파일</th><td><code>[Paper URL]</code>, <code>[Zotero URI]</code>, <code>[Zotero Key]</code>, <code>[File Path]</code></td></tr>
+                <tr><th scope="row">분류와 읽기 상태</th><td><code>[Tags]</code>, <code>[Collections]</code>, <code>[Project]</code>, <code>[Status]</code></td></tr>
+                <tr><th scope="row">기타 정보</th><td><code>[Date Added]</code>, <code>[Date Modified]</code>, <code>[Extra]</code></td></tr>
+              </tbody>
+            </table>
+            <h3>직접 만든 속성 쓰기</h3>
+            <p>기본 속성을 Notion에서 다른 이름으로 연결했다면 두 이름 모두 쓸 수 있습니다. 직접 추가한 속성도 마찬가지입니다. 예를 들어 텍스트 속성 ‘읽는 이유’는 <code>[읽는 이유]</code> 또는 <code>[읽는_이유]</code>로 넣으세요. <strong>Preview</strong>에서는 Zotero 문헌이나 예제 데이터를 사용하므로 Notion 속성값은 새 논문 페이지에서 확인하세요.</p>
+            <p>제목, 텍스트, 숫자, 선택, 상태, 다중 선택, 날짜, 체크박스, URL, 생성·수정 시간 속성을 지원합니다. 날짜 범위에서는 시작일을 가져오고, 다중 선택 항목은 세미콜론으로 구분합니다.</p>
+            <p>페이지 본문을 처음 채울 때 속성값을 한 번 가져옵니다. 관계형·롤업·수식 속성은 빈칸으로 표시됩니다. 변수 이름에 오타가 있으면 대괄호가 그대로 남습니다.</p>
+          </section>
+          <section id="rules" aria-labelledby="rules-title">
+            <h2 id="rules-title">템플릿 선택 규칙</h2>
+            <p><strong>Templates → Default template</strong>에서 평소 쓸 양식을 고르세요. <strong>Edit template</strong>은 편집할 양식을 여는 메뉴입니다. 특정 컬렉션이나 태그에 다른 양식을 쓰고 싶다면 규칙을 추가하세요.</p>
+            <ol class="directions">
+              <li><strong>Template rules → Add rule</strong>을 누르세요.</li>
+              <li><strong>Collection</strong>을 고르면 선택한 컬렉션과 그 아래의 모든 컬렉션에 적용됩니다. 컬렉션 이름을 바꿔도 규칙은 유지됩니다. <strong>Tag</strong>를 고르면 Zotero에 등록한 태그 이름을 대소문자까지 똑같이 입력하세요.</li>
+              <li><strong>Template</strong>에서 이 조건에 쓸 양식을 고르세요. <strong>↑</strong>를 누르면 규칙이 한 칸 올라갑니다.</li>
+            </ol>
+            <aside class="tip-note">
+              <h3>태그와 컬렉션이 모두 일치하면?</h3>
+              <p>맨 위에 <code>review</code> 태그용 <strong>Paper review</strong> 규칙을 두고, 그 아래에 <code>Seminar</code> 컬렉션용 <strong>Section summary</strong> 규칙을 두세요. 그러면 같은 세미나 논문이라도 <code>review</code> 태그가 붙은 논문에는 <strong>Paper review</strong>가, 그 태그가 없는 논문에는 <strong>Section summary</strong>가 적용됩니다.</p>
+            </aside>
+            <p>플러그인은 위에서부터 처음 일치하는 규칙 하나를 적용합니다. 설정을 마치지 않았거나 비활성인 규칙은 건너뜁니다. 어느 규칙에도 맞지 않으면 기본 템플릿을 씁니다. 규칙을 바꾸면 이후 만드는 노트에 적용되고, 이미 작성한 본문은 그대로 남습니다.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="../../"><img src="../../icon.png" alt="" width="30" height="30">Zotero2Notion</a>
+      <div class="footer-links">
+        <a href="https://github.com/legojeon/Zotero2Notion/issues">문제 신고</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/PRIVACY.md">개인정보 처리 안내</a>
+        <a href="https://github.com/legojeon/Zotero2Notion/blob/main/LICENSE">MIT License</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
