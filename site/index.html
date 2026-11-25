@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#faf9f7">
-  <meta name="description" content="Zotero의 논문을 Notion 연구 노트로 동기화하는 Zotero2Notion 플러그인. XPI를 다운로드하고 설치부터 첫 동기화까지 따라 해 보세요.">
+  <meta name="description" content="Zotero에 저장한 논문을 Notion으로 가져와 나만의 노트 템플릿으로 정리하세요. Zotero2Notion 설치 파일과 연결 방법을 확인할 수 있습니다.">
   <title>Zotero2Notion — 다운로드 및 설치 가이드</title>
   <link rel="icon" type="image/png" href="./icon.png">
   <link rel="stylesheet" href="./styles.css">
@@ -16,7 +16,7 @@
   <a class="skip" href="#main">본문으로 바로가기</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="#top" aria-label="Zotero2Notion 처음으로">
+      <a class="brand" href="#top" aria-label="페이지 맨 위로">
         <img src="./icon.png" alt="" width="38" height="38">Zotero2Notion
       </a>
       <nav class="main-nav" aria-label="주 메뉴">
@@ -36,14 +36,14 @@
       <div class="intro">
         <p class="compat"><span aria-hidden="true"></span>Zotero 10.0.x 플러그인</p>
         <h1 id="hero-title">Zotero의 논문을<br><em>Notion 노트로.</em></h1>
-        <p class="lead">Zotero에 논문을 추가하면 Notion에 연구 노트가 생깁니다. 서지 정보는 자동으로 업데이트되고, 읽으며 남긴 생각은 그대로 쌓입니다.</p>
+        <p class="lead">Zotero에 논문을 추가하면 Notion에 연구 노트가 생깁니다. 나만의 노트 템플릿을 만들어 논문을 정리하세요.</p>
         <div class="actions">
           <a class="button primary" href="./download.xpi" download="Zotero2Notion.xpi">플러그인 다운로드 <span class="extension">.xpi</span></a>
           <a class="button secondary" href="#install">설치 방법 보기</a>
         </div>
-        <a class="release" href="https://github.com/legojeon/Zotero2Notion/releases/latest">최신 릴리스 노트</a>
+        <a class="release" href="https://github.com/legojeon/Zotero2Notion/releases/latest">최신 버전 변경 사항</a>
       </div>
-      <figure class="demo" aria-label="동기화 예시. Zotero에 저장한 논문 Attention Is All You Need가 저자와 출판 연도를 포함하는 Notion 연구 노트로 만들어집니다.">
+      <figure class="demo" aria-label="동기화 예시. Zotero에 저장한 논문 ‘Attention Is All You Need’의 제목, 저자, 출판 연도가 Notion 노트에 표시됩니다.">
         <div class="board" aria-hidden="true">
           <div class="back-card">
             <div class="source-label"><span class="z-mark">Z</span> Zotero</div>
@@ -71,28 +71,28 @@
       <div class="wrap guide-layout">
         <div class="section-intro">
           <h2 id="guide-title">설치 가이드</h2>
-          <p>시작하려면 Zotero 10.0.x와 개인 액세스 토큰을 발급할 수 있는 Notion 계정이 필요합니다.</p>
+          <p>Zotero 10.0.x에서 사용할 수 있습니다. Notion 계정에는 개인 액세스 토큰을 만들 권한이 필요합니다.</p>
         </div>
         <ol class="steps">
           <li>
             <div class="step-body">
               <h3>Zotero에 플러그인 설치하기</h3>
-              <p>위에서 받은 <code>.xpi</code> 파일을 그대로 둡니다. Zotero의 <strong>Tools → Plugins</strong>에서 톱니바퀴 메뉴를 열고 <strong>Install Plugin From File…</strong>을 눌러 파일을 선택하세요.</p>
+              <p>Zotero에서 <strong>Tools → Plugins</strong>를 열고 톱니바퀴를 누르세요. <strong>Install Plugin From File…</strong>을 선택한 다음, 내려받은 <code>.xpi</code> 파일을 여세요.</p>
             </div>
           </li>
           <li>
             <div class="step-body">
               <h3>Notion 계정 연결하기</h3>
-              <p>Zotero의 <strong>Settings → Zotero2Notion</strong>에서 <strong>Get token</strong>을 누르세요. Notion에서 사용할 워크스페이스를 선택하고 <strong>Notion API</strong> 권한이 있는 개인 액세스 토큰을 만드세요.</p>
-              <p>플러그인 설정의 <strong>Personal access token</strong>에 토큰을 붙여 넣고 <strong>Connect</strong>를 누릅니다.</p>
+              <p>Zotero의 <strong>Settings → Zotero2Notion</strong>에서 <strong>Get token</strong>을 누르세요. Notion 페이지가 열리면 논문을 저장할 워크스페이스를 고르고, <strong>Notion API</strong> 권한을 선택해 개인 액세스 토큰을 만드세요.</p>
+              <p>Zotero로 돌아와 <strong>Personal access token</strong> 칸에 토큰을 붙여 넣고 <strong>Connect</strong>를 누르세요.</p>
             </div>
           </li>
           <li>
             <div class="step-body">
               <h3>데이터베이스 선택하기</h3>
-              <p>처음 시작한다면 <strong>New</strong>를 누르세요. Notion의 비공개 <strong>Zotero2Notion</strong> 페이지 아래에 <strong>JournalDB</strong>가 생깁니다.</p>
-              <p>기존 데이터베이스를 쓰거나 <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">예제 템플릿</a>을 복제한 경우, <strong>Refresh</strong>로 목록을 새로 고친 뒤 데이터베이스를 선택하고 <strong>Use</strong>를 누르세요. <strong>Check properties</strong>에서 필요한 속성을 확인할 수 있습니다.</p>
-              <div class="sync-note"><strong>첫 동기화</strong><p>속성이 준비되면 <b>My Library</b>에 이미 있는 문헌도 자동으로 동기화됩니다. 이후 추가하거나 수정한 문헌을 반영하려면 Zotero를 열어 두세요.</p></div>
+              <p>새 데이터베이스를 만들려면 <strong>New</strong>를 누르세요. Notion에 비공개 <strong>Zotero2Notion</strong> 페이지가 생기고, 그 안에 <strong>JournalDB</strong>가 만들어집니다.</p>
+              <p>기존 데이터베이스나 <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">예제 템플릿</a>의 복사본을 쓰려면 <strong>Refresh</strong>를 누르세요. 목록에서 데이터베이스를 고른 뒤 <strong>Use</strong>로 연결하세요. <strong>Check properties</strong>를 누르면 필요한 속성이 갖춰졌는지 확인할 수 있습니다.</p>
+              <div class="sync-note"><strong>첫 동기화</strong><p>필요한 속성이 갖춰지면 <b>My Library</b>에 이미 저장해 둔 논문도 Notion으로 가져옵니다. 그 뒤로는 Zotero를 열어 두면 새로 추가한 논문과 수정한 내용이 자동으로 반영됩니다.</p></div>
             </div>
           </li>
         </ol>
@@ -102,11 +102,10 @@
       <div class="wrap guide-layout">
         <div class="section-intro">
           <h2 id="tips-title">활용 팁</h2>
-          <p>브라우저에서 논문을 수집하고, 내 독서 방식에 맞춰 연구 노트를 구성해 보세요.</p>
         </div>
         <div class="tip-links">
-          <a href="./tips/#connector"><strong>Zotero Connector로 논문 저장하기</strong><span>논문 페이지에서 저장한 문헌이 Notion에 들어오기까지의 과정을 따라갑니다.</span></a>
-          <a href="./tips/#templates"><strong>나만의 노트 템플릿 만들기</strong><span>Markdown 예제를 편집하고 컬렉션이나 태그별로 다른 양식을 적용합니다.</span></a>
+          <a href="./tips/#connector"><strong>Zotero Connector로 논문 저장하기</strong><span>논문 초록 페이지에서 제목과 저자를 Zotero에 한 번에 저장하는 방법</span></a>
+          <a href="./tips/#templates"><strong>나만의 노트 템플릿 만들기</strong><span>복사해서 쓸 수 있는 Markdown 예제와 컬렉션별 템플릿 설정법</span></a>
         </div>
       </div>
     </section>
@@ -118,15 +117,15 @@
       <div class="questions">
         <details>
           <summary>어떤 정보가 동기화되나요?</summary>
-          <p>My Library의 문헌 제목, 저자, 초록, 태그, 컬렉션 등 연결한 속성이 Zotero에서 Notion으로 전송됩니다. 템플릿에 <code>[zotero_notes]</code>를 넣으면 문헌에 딸린 노트도 가져옵니다. 그룹 라이브러리, PDF 파일, PDF에만 있는 주석은 동기화 대상에서 제외됩니다.</p>
+          <p>My Library에 저장한 논문의 제목, 저자, 초록 등을 가져옵니다. 태그와 컬렉션도 Notion 속성에 연결하면 함께 표시됩니다. 템플릿에 <code>[zotero_notes]</code>만 적은 줄을 하나 넣으면 논문에 남긴 Zotero 노트도 가져옵니다. 그룹 라이브러리의 문헌, PDF 파일, PDF에만 남긴 주석은 동기화하지 않습니다.</p>
         </details>
         <details>
-          <summary>Notion에서 작성한 메모는 어떻게 되나요?</summary>
-          <p>플러그인은 새 페이지를 만들 때 템플릿을 적용합니다. 이후 서지 정보가 바뀌어도 직접 작성한 본문과 읽기 상태는 유지됩니다. Zotero에서 가져온 노트는 별도로 갱신되므로 개인 메모는 해당 노트 토글 바깥에 작성하세요.</p>
+          <summary>다시 동기화하면 Notion에 쓴 메모도 바뀌나요?</summary>
+          <p>직접 쓴 본문과 읽기 상태는 그대로 남습니다. Zotero에서 가져온 노트는 원본을 수정하면 함께 바뀌니, Notion에서 새로 쓰는 메모는 <strong>Zotero Notes</strong> 바깥에 적어 두세요.</p>
         </details>
         <details>
-          <summary>데이터베이스가 목록에 보이지 않아요.</summary>
-          <p>토큰을 발급한 워크스페이스에 데이터베이스가 있는지 확인하고 플러그인 설정에서 <strong>Refresh</strong>를 누르세요. 목록에 있는 데이터베이스를 선택한 뒤에는 <strong>Use</strong>를 눌러야 연결됩니다.</p>
+          <summary>내 데이터베이스가 목록에 안 보여요.</summary>
+          <p>Notion에서 데이터베이스가 어느 워크스페이스에 있는지 확인하세요. 토큰을 만든 워크스페이스와 같다면 Zotero2Notion 설정에서 <strong>Refresh</strong>를 누르세요. 목록에 나타나면 선택한 뒤 <strong>Use</strong>를 눌러 연결하세요.</p>
         </details>
       </div>
     </section>
