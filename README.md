@@ -77,6 +77,8 @@ Use any structure that helps you learn: rename headings, add or remove sections,
 
 Variables also accept property names such as `[Abstract]`, `[Full Citation]`, and `[Project]`. Choose **Default template** in **Templates**, or add collection/tag rules under **Template rules**. The first matching rule wins.
 
+Look up variables and see how rules work in the [English template reference](https://legojeon.github.io/Zotero2Notion/en/tips/template-reference/) or the [한국어 가이드](https://legojeon.github.io/Zotero2Notion/tips/template-reference/).
+
 The outline populates the page once. Editing it applies to future page creation. Both included examples also contain `[zotero_notes]`: put it once on its own line to include the paper’s child notes there, or remove it to stop importing notes. Multiple notes appear as separate toggles inside **Zotero Notes**; papers without notes get no empty section. Imported notes stay in sync, while your other page content is preserved. Customized templates are kept unchanged on upgrade—add the placeholder yourself to opt in. **The plugin creates outlines, not AI-generated paper summaries.**
 
 ## What syncs
