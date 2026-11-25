@@ -4,7 +4,7 @@
 <h1 align="center">Zotero2Notion</h1>
 <p align="center">Collect papers in Zotero. Organize your learning in Notion.</p>
 <p align="center">
-  <a href="https://github.com/legojeon/Zotero2Notion/releases/latest">Download</a> ·
+  <a href="https://legojeon.github.io/Zotero2Notion/">Download &amp; installation guide (한국어)</a> ·
   <a href="https://sleepy-hamster-e60.notion.site/Zsotero2Notion-Journal-DB-400cf80747f2804b99e3db09641b7368">Notion template</a> ·
   <a href="docs/configuration.md">User guide</a>
 </p>

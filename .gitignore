@@ -1,6 +1,7 @@
 node_modules/
 build/
 dist/
+/site/download.xpi
 .env
 .env.*
 .dev.vars

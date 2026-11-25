@@ -42,6 +42,8 @@ GitHub Actions runs the same checks on pushes and pull requests. Use an isolated
 
 The updater is hosted in GitHub Releases; no separate server is needed. Keep the existing plugin ID so installed copies receive updates. Versions before 0.1.10 must be updated manually once to adopt the public update URL.
 
+The [download site](https://legojeon.github.io/Zotero2Notion/) publishes from `site/` on `main`. The **Publish download site** workflow refreshes it on site changes and releases, and verifies the latest release XPI against `updates.json` before publishing. If you attach missing assets after publishing a release, rerun the workflow from `main`. The `github-pages` environment allows deployments from `main` and release tags matching `v*`.
+
 `Z2N_UPDATE_URL` can override the update manifest URL for a development build. Forks should also update the package repository URL and choose their own plugin ID before distributing releases.
 
 `linkedom` is used only in Node tests to parse fixture HTML. The plugin uses Zotero’s DOM parser and does not bundle a DOM library. `tests/runtime-notes.js` is an isolated-profile test harness; it refuses a regular data directory and does not connect to Notion.
